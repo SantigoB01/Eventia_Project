@@ -12,7 +12,7 @@
 	<artifactId>review</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>review</name>
-	<description>Auth of project Eventia</description>
+	<description>Demo project for Spring Boot</description>
 	<url/>
 	<licenses>
 		<license/>

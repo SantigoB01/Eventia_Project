@@ -27,9 +27,13 @@ public class UsuarioGatewayImpl implements UsuarioGateway {
     @Override
     public Usuario buscarPorId(Long id_Usuario) {
 
+<<<<<<< HEAD
         //return usuarioMapper.toUsuario(repository.findById(id_Usuario).get());
 
         return repository.findById(id_Usuario)
+=======
+        return repository.findById(id)
+>>>>>>> dea96a13a1ea46609db5f43ed6788b0f47221a27
                 .map(usuarioData -> usuarioMapper.toUsuario(usuarioData))
                 .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
     }

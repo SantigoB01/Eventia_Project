@@ -16,9 +16,8 @@ public class Usuario {
     private String nombre;
     private String email;
     private String password;
-    private String rol;
+    private Rol rol;
     private Integer edad;
-    private String numeroTelefono;
     private String ciudad;
 
 }

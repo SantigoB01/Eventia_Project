@@ -1,4 +1,4 @@
 package com.eventia.auth.domain.usecase;
 
-public class OferenteGateway {
+public class OferenteUseCase {
 }

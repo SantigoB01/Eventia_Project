@@ -1,4 +1,93 @@
 package com.eventia.auth.domain.usecase;
 
+import com.eventia.auth.domain.model.Usuario;
+import com.eventia.auth.domain.model.gateway.EncrypterGateway;
+import com.eventia.auth.domain.model.gateway.UsuarioGateway;
+import lombok.RequiredArgsConstructor;
+
+@RequiredArgsConstructor
 public class UsuarioUseCase {
+
+    private final UsuarioGateway usuarioGateway;
+    private final EncrypterGateway encrypterGateway;
+
+<<<<<<< HEAD
+    public Usuario guardarUsuario(Usuario usuario){
+        if(usuario.getEmail() == null && usuario.getPassword() == null){
+            throw new NullPointerException("Ojo con eso manito!! - guardarUsuario");
+        }
+        if(usuario.getRol() == null){
+            throw new NullPointerException("Debes ingresar un rol valido");
+        }
+        String passwordEncrypt = encrypterGateway.encrypt(usuario.getPassword());
+        usuario.setPassword(passwordEncrypt);
+
+        Usuario usuarioGuardado = usuarioGateway.guardarUsuario(usuario);
+        return usuarioGuardado;
+    }
+
+    public void eliminarUsuarioPorId(Long id_Usuario){
+        try{
+            usuarioGateway.eliminarUsuario(id_Usuario);
+        }catch(Exception error){
+=======
+    public Usuario guardarUsuario (Usuario usuario) {
+        if (usuario.getEmail() == null || usuario.getPassword() == null || usuario.getNombre() == null || usuario.getEdad() == null) {
+            throw new NullPointerException("Ojo con eso, campos vacios");
+
+        }
+        if(usuario.getNombre() == null && usuario.getPassword() == null){
+            throw new IllegalArgumentException("El nombre y la contraseña son obligatorios");
+        }
+        if (usuario.getEdad()<18) {
+            System.out.println("Necesitas ser mayor de 18");
+        }
+        String passwordEncrypt = encrypterGateway.encrypt(usuario.getPassword());
+        usuario.setPassword(passwordEncrypt);
+        Usuario usuarioGuardado = usuarioGateway.guardarUsuario(usuario);
+
+
+        return usuarioGuardado;
+    }
+
+    public void eliminarUsuarioPorId(Long id) {
+        try{
+            usuarioGateway.eliminarUsuario(id);
+        } catch (Exception error){
+>>>>>>> dea96a13a1ea46609db5f43ed6788b0f47221a27
+            System.out.println(error.getMessage());
+        }
+    }
+
+    public Usuario buscarUsuarioPorId (Long id) {
+        try{
+            return usuarioGateway.buscarPorId(id);
+        }catch (Exception error){
+            System.out.println(error.getMessage());
+            return new Usuario();
+        }
+    }
+
+    public Usuario actualizarUsuario (Usuario usuario){
+        if (usuario.getId_Usuario() == null){
+            throw new IllegalArgumentException("El ID es obligatorio");
+        }
+        //if (usu)
+        String passwordEncrypt = encrypterGateway.encrypt(usuario.getPassword());
+        usuario.setPassword(passwordEncrypt);
+
+        return usuarioGateway.actualizarUsuario(usuario);
+    }
+
+    public String loginConEmail(String email, String password) {
+        String PassBD = usuarioGateway.loginConEmail(email, password);
+        Boolean validacion = encrypterGateway.checkPass(password, PassBD);
+        if(validacion) {
+            return "Ha iniciado sesión con exito";
+        }else{
+            return "Contraseña o Correo incorrecto";
+        }
+
+    }
 }
+

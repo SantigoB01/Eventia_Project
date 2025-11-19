@@ -1,11 +1,13 @@
 package com.eventia.auth.domain.model;
 
-public class Oferente {
-    private Long id_Usuario;
-    private String nombre;
-    private String email;
-    private String password;
-    private Integer edad;
-    private String numeroTelefono;
-    private String ciudad;
+public class Oferente extends Usuario {
+
+    private String nombre_Artistico;
+    private String especialidad;
+    private String telefono;
+
+    public Oferente() {
+        super();
+        setRol(Rol.OFERENTE);
+    }
 }

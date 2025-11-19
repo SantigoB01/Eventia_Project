@@ -1,8 +1,8 @@
-package com.ecommerce.auth.infraestructure.driver_adapters.jpa_repository;
+package com.eventia.auth.infraestructure.driver_adapters.jpa_repository;
 
-import com.ecommerce.auth.domain.model.Usuario;
-import com.ecommerce.auth.domain.model.gateway.UsuarioGateway;
-import com.ecommerce.auth.infraestructure.mapper.UsuarioMapper;
+import com.eventia.auth.domain.model.Usuario;
+import com.eventia.auth.domain.model.gateway.UsuarioGateway;
+import com.eventia.auth.infraestructure.mapper.UsuarioMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
@@ -10,12 +10,12 @@ import org.springframework.stereotype.Repository;
 @RequiredArgsConstructor
 public class UsuarioGatewayImpl implements UsuarioGateway {
 
-    private final UsuarioMapper  usuarioMapper;
-    private final UsuarioDataJpaRepository repository;
+    private final UsuarioMapper usuarioMapper;
+    private final com.eventia.auth.infraestructure.driver_adapters.jpa_repository.UsuarioDataJpaRepository repository;
 
     @Override
     public Usuario guardarUsuario(Usuario usuario) {
-        UsuarioData usuarioData = usuarioMapper.toData(usuario);
+        com.eventia.auth.infraestructure.driver_adapters.jpa_repository.UsuarioData usuarioData = usuarioMapper.toData(usuario);
         return usuarioMapper.toUsuario(repository.save(usuarioData));
     }
 
@@ -25,11 +25,15 @@ public class UsuarioGatewayImpl implements UsuarioGateway {
     }
 
     @Override
-    public Usuario buscarPorId(Long id) {
+    public Usuario buscarPorId(Long id_Usuario) {
 
-        //return usuarioMapper.toUsuario(repository.findById(id).get());
+<<<<<<< HEAD
+        //return usuarioMapper.toUsuario(repository.findById(id_Usuario).get());
 
+        return repository.findById(id_Usuario)
+=======
         return repository.findById(id)
+>>>>>>> dea96a13a1ea46609db5f43ed6788b0f47221a27
                 .map(usuarioData -> usuarioMapper.toUsuario(usuarioData))
                 .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
     }
@@ -38,8 +42,8 @@ public class UsuarioGatewayImpl implements UsuarioGateway {
     public Usuario actualizarUsuario(Usuario usuario) {
         UsuarioData usuarioDataActualizar = usuarioMapper.toData(usuario);
 
-        if (!repository.existsById(usuarioDataActualizar.getId())){
-            throw new RuntimeException("Usuario con id: " + usuarioDataActualizar.getId() + " no existe");
+        if (!repository.existsById(usuarioDataActualizar.getId_Usuario())){
+            throw new RuntimeException("Usuario con id: " + usuarioDataActualizar.getId_Usuario() + " no existe");
         }
         return usuarioMapper.toUsuario(repository.save(usuarioDataActualizar));
 

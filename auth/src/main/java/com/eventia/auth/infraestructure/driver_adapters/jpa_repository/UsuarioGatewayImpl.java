@@ -25,11 +25,11 @@ public class UsuarioGatewayImpl implements UsuarioGateway {
     }
 
     @Override
-    public Usuario buscarPorId(Long id) {
+    public Usuario buscarPorId(Long id_Usuario) {
 
-        //return usuarioMapper.toUsuario(repository.findById(id).get());
+        //return usuarioMapper.toUsuario(repository.findById(id_Usuario).get());
 
-        return repository.findById(id)
+        return repository.findById(id_Usuario)
                 .map(usuarioData -> usuarioMapper.toUsuario(usuarioData))
                 .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
     }
@@ -38,8 +38,8 @@ public class UsuarioGatewayImpl implements UsuarioGateway {
     public Usuario actualizarUsuario(Usuario usuario) {
         UsuarioData usuarioDataActualizar = usuarioMapper.toData(usuario);
 
-        if (!repository.existsById(usuarioDataActualizar.getId())){
-            throw new RuntimeException("Usuario con id: " + usuarioDataActualizar.getId() + " no existe");
+        if (!repository.existsById(usuarioDataActualizar.getId_Usuario())){
+            throw new RuntimeException("Usuario con id: " + usuarioDataActualizar.getId_Usuario() + " no existe");
         }
         return usuarioMapper.toUsuario(repository.save(usuarioDataActualizar));
 

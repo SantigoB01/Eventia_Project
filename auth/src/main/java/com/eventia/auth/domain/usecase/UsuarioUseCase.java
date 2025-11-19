@@ -14,10 +14,22 @@ public class UsuarioUseCase {
     public Usuario guardarUsuario(Usuario usuario){
         if(usuario.getEmail() == null && usuario.getPassword() == null){
             throw new NullPointerException("Ojo con eso manito!! - guardarUsuario");
-            String passwordEncrypt = encrypterGateway.encrypt(usuario.getPassword());
-            usuario.setPassword(passwordEncrypt);
+        }
+        if(usuario.getRol() == null){
+            throw new NullPointerException("Debes ingresar un rol valido");
+        }
+        String passwordEncrypt = encrypterGateway.encrypt(usuario.getPassword());
+        usuario.setPassword(passwordEncrypt);
 
-            Usuario usuarioGuardado = usuarioGateway.guardarUsuario(usuario);
+        Usuario usuarioGuardado = usuarioGateway.guardarUsuario(usuario);
+        return usuarioGuardado;
+    }
+
+    public void eliminarUsuarioPorId(Long id_Usuario){
+        try{
+            usuarioGateway.eliminarUsuario(id_Usuario);
+        }catch(Exception error){
+            System.out.println(error.getMessage());
         }
     }
 }

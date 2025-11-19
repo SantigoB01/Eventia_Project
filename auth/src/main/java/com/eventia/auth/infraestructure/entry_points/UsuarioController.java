@@ -1,9 +1,9 @@
-package com.ecommerce.auth.infraestructure.entry_points;
+package com.eventia.auth.infraestructure.entry_points;
 
-import com.ecommerce.auth.domain.model.Usuario;
-import com.ecommerce.auth.domain.usecase.UsuarioUseCase;
-import com.ecommerce.auth.infraestructure.driver_adapters.jpa_repository.UsuarioData;
-import com.ecommerce.auth.infraestructure.mapper.UsuarioMapper;
+import com.eventia.auth.domain.model.Usuario;
+import com.eventia.auth.domain.usecase.UsuarioUseCase;
+import com.eventia.auth.infraestructure.driver_adapters.jpa_repository.UsuarioData;
+import com.eventia.auth.infraestructure.mapper.UsuarioMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,7 +22,7 @@ public class UsuarioController {
         Usuario usuarioConvertido = usuarioMapper.toUsuario(usuarioData);
         var usuario = usuarioUseCase.guardarUsuario(usuarioConvertido);
 
-        if (usuarioConvertido.getNombres() != null) {
+        if (usuarioConvertido.getNombre() != null) {
             return new ResponseEntity<>(usuario, HttpStatus.OK);
         }
         return new ResponseEntity<>(usuario, HttpStatus.NOT_FOUND);
@@ -33,7 +33,7 @@ public class UsuarioController {
 
         Usuario usuario = usuarioUseCase.buscarUsuarioPorId(id);
 
-        if (usuario.getId() != null) {
+        if (usuario.getId_Usuario() != null) {
             return new ResponseEntity<>(usuario, HttpStatus.OK);
         }
         return new ResponseEntity<>(usuario, HttpStatus.NOT_FOUND);

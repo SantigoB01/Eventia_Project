@@ -1,6 +1,6 @@
-package com.ecommerce.auth.infraestructure.security;
+package com.eventia.auth.infraestructure.security;
 
-import com.ecommerce.auth.domain.model.gateway.EncrypterGateway;
+import com.eventia.auth.domain.model.gateway.EncrypterGateway;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 

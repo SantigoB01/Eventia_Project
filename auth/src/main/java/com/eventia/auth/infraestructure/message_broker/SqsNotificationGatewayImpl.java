@@ -1,7 +1,7 @@
-package com.ecommerce.auth.infraestructure.message_broker;
+package com.eventia.auth.infraestructure.message_broker;
 
-import com.ecommerce.auth.domain.model.Notificacion;
-import com.ecommerce.auth.domain.model.gateway.NotificationGateway;
+import com.eventia.auth.domain.model.Notificacion;
+import com.eventia.auth.domain.model.gateway.NotificationGateway;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;

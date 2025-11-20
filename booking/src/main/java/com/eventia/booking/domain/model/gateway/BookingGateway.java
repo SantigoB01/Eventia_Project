@@ -4,6 +4,7 @@ import com.eventia.booking.domain.model.Booking;
 
 import java.util.List;
 
+
 public interface BookingGateway {
         Booking crearReserva(Booking reserva);
         Booking obtenerReservaPorId(Integer Id_Reserva);

@@ -11,26 +11,6 @@ public class UsuarioUseCase {
     private final UsuarioGateway usuarioGateway;
     private final EncrypterGateway encrypterGateway;
 
-<<<<<<< HEAD
-    public Usuario guardarUsuario(Usuario usuario){
-        if(usuario.getEmail() == null && usuario.getPassword() == null){
-            throw new NullPointerException("Ojo con eso manito!! - guardarUsuario");
-        }
-        if(usuario.getRol() == null){
-            throw new NullPointerException("Debes ingresar un rol valido");
-        }
-        String passwordEncrypt = encrypterGateway.encrypt(usuario.getPassword());
-        usuario.setPassword(passwordEncrypt);
-
-        Usuario usuarioGuardado = usuarioGateway.guardarUsuario(usuario);
-        return usuarioGuardado;
-    }
-
-    public void eliminarUsuarioPorId(Long id_Usuario){
-        try{
-            usuarioGateway.eliminarUsuario(id_Usuario);
-        }catch(Exception error){
-=======
     public Usuario guardarUsuario (Usuario usuario) {
         if (usuario.getEmail() == null || usuario.getPassword() == null || usuario.getNombre() == null || usuario.getEdad() == null) {
             throw new NullPointerException("Ojo con eso, campos vacios");
@@ -50,18 +30,17 @@ public class UsuarioUseCase {
         return usuarioGuardado;
     }
 
-    public void eliminarUsuarioPorId(Long id) {
+    public void eliminarUsuarioPorId(Long id_Usuario) {
         try{
-            usuarioGateway.eliminarUsuario(id);
+            usuarioGateway.eliminarUsuario(id_Usuario);
         } catch (Exception error){
->>>>>>> dea96a13a1ea46609db5f43ed6788b0f47221a27
             System.out.println(error.getMessage());
         }
     }
 
-    public Usuario buscarUsuarioPorId (Long id) {
+    public Usuario buscarUsuarioPorId (Long id_Usuario) {
         try{
-            return usuarioGateway.buscarPorId(id);
+            return usuarioGateway.buscarPorId(id_Usuario);
         }catch (Exception error){
             System.out.println(error.getMessage());
             return new Usuario();
@@ -89,5 +68,14 @@ public class UsuarioUseCase {
         }
 
     }
+
+    public void registrarRol (Usuario usuario) {
+        try{
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 }
 

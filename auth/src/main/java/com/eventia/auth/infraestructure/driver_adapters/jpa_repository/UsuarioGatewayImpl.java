@@ -11,11 +11,11 @@ import org.springframework.stereotype.Repository;
 public class UsuarioGatewayImpl implements UsuarioGateway {
 
     private final UsuarioMapper usuarioMapper;
-    private final com.eventia.auth.infraestructure.driver_adapters.jpa_repository.UsuarioDataJpaRepository repository;
+    private final UsuarioDataJpaRepository repository;
 
     @Override
     public Usuario guardarUsuario(Usuario usuario) {
-        com.eventia.auth.infraestructure.driver_adapters.jpa_repository.UsuarioData usuarioData = usuarioMapper.toData(usuario);
+        UsuarioData usuarioData = usuarioMapper.toData(usuario);
         return usuarioMapper.toUsuario(repository.save(usuarioData));
     }
 
@@ -27,13 +27,7 @@ public class UsuarioGatewayImpl implements UsuarioGateway {
     @Override
     public Usuario buscarPorId(Long id_Usuario) {
 
-<<<<<<< HEAD
-        //return usuarioMapper.toUsuario(repository.findById(id_Usuario).get());
-
         return repository.findById(id_Usuario)
-=======
-        return repository.findById(id)
->>>>>>> dea96a13a1ea46609db5f43ed6788b0f47221a27
                 .map(usuarioData -> usuarioMapper.toUsuario(usuarioData))
                 .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
     }

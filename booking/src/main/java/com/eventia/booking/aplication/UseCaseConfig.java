@@ -1,4 +1,11 @@
 package com.eventia.booking.aplication;
 
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+@Configuration
 public class UseCaseConfig {
+@Bean
+
+
 }

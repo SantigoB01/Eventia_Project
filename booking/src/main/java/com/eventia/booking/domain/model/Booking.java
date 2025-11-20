@@ -5,7 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 @AllArgsConstructor
 @Setter
@@ -16,7 +16,7 @@ public class Booking {
     private Long id_Reserva;
     private Long Id_Servicio;
     private Long Id_Usuario_Cliente;
-    private Date Fecha_Reserva;
+    private LocalDate Fecha_Reserva;
     private String Estado;
     private Double Total;
 }

@@ -14,9 +14,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 public class OferenteData {
-    @Id
-    private Long id_Usuario;
+
     private String nombre_Artistico;
     private String especialidad;
     private String telefono;
+    private Boolean activo;
 }

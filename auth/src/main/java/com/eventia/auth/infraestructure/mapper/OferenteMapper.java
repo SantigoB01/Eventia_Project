@@ -11,16 +11,17 @@ public class OferenteMapper {
         return new Oferente(
                 oferenteData.getTelefono(),
                 oferenteData.getNombre_Artistico(),
-                oferenteData.getEspecialidad()
+                oferenteData.getEspecialidad(),
+                oferenteData.getActivo()
         );
     }
 
     public OferenteData toData(Oferente oferente){
         return new OferenteData(
-                oferente.getId_Usuario(),
                 oferente.getTelefono(),
                 oferente.getNombre_Artistico(),
-                oferente.getEspecialidad()
+                oferente.getEspecialidad(),
+                oferente.getActivo()
         );
     }
 }

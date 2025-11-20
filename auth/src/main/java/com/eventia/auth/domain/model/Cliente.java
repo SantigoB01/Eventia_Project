@@ -9,6 +9,8 @@ import lombok.Setter;
 public class Cliente extends Usuario {
 
     private String telefono;
+    private Boolean activo;
+    private String reseñasH;
 
     public Cliente() {
         super();

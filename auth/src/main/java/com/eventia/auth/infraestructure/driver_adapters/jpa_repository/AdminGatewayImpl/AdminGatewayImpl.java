@@ -3,10 +3,18 @@ package com.eventia.auth.infraestructure.driver_adapters.jpa_repository.AdminGat
 import com.eventia.auth.domain.model.Rol;
 import com.eventia.auth.domain.model.Usuario;
 import com.eventia.auth.domain.model.gateway.AdminGateway;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
-
+@Repository
+@RequiredArgsConstructor
 public class AdminGatewayImpl implements AdminGateway {
+
+    @Override
+    public Usuario crearAdmin(Usuario usuario) {
+        return null;
+    }
 
     @Override
     public List<Usuario> verListadoUsuarios() {

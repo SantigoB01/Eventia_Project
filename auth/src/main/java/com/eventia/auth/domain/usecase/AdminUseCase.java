@@ -7,14 +7,10 @@ import com.eventia.auth.domain.model.gateway.EncrypterGateway;
 import com.eventia.auth.domain.model.gateway.ServicioGateway;
 import com.eventia.auth.domain.model.gateway.UsuarioGateway;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
-
+@RequiredArgsConstructor
 public class AdminUseCase {
-    @Service
-    @RequiredArgsConstructor
-    public class AdminUseCaseImpl {
 
         private final UsuarioGateway usuarioGateway;
         private final AdminGateway adminGateway;
@@ -96,6 +92,6 @@ public class AdminUseCase {
             servicioGateway.eliminarCategoria(nombreC);
             return "Categoría eliminada correctamente";
         }
+
     }
 
-}

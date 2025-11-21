@@ -13,11 +13,6 @@ public class UsuarioGatewayImpl implements UsuarioGateway {
     private final UsuarioMapper usuarioMapper;
     private final UsuarioDataJpaRepository repository;
 
-    @Override
-    public Usuario guardarUsuario(Usuario usuario) {
-        UsuarioData usuarioData = usuarioMapper.toData(usuario);
-        return usuarioMapper.toUsuario(repository.save(usuarioData));
-    }
 
     @Override
     public void eliminarUsuario(Long id) {

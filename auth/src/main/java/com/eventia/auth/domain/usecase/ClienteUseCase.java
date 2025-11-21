@@ -1,15 +1,16 @@
 package com.eventia.auth.domain.usecase;
 
 import com.eventia.auth.domain.model.Cliente;
-import com.eventia.auth.domain.model.Usuario;
 import com.eventia.auth.domain.model.gateway.ClienteGateway;
 import com.eventia.auth.domain.model.gateway.EncrypterGateway;
-import com.eventia.auth.domain.model.gateway.OferenteGateway;
+import lombok.RequiredArgsConstructor;
 
+@RequiredArgsConstructor
 public class ClienteUseCase {
 
-    private ClienteGateway clienteGateway;
-    private EncrypterGateway encrypterGateway;
+    private final ClienteGateway clienteGateway;
+    private final EncrypterGateway encrypterGateway;
+
     public Cliente guardarCliente (Cliente cliente) {
         if (cliente.getEmail() == null || cliente.getPassword() == null || cliente.getNombre() == null || cliente.getEdad() == null) {
             throw new NullPointerException("Ojo con eso, campos vacios");
@@ -52,6 +53,14 @@ public class ClienteUseCase {
         cliente.setPassword(passwordEncrypt);
 
         return clienteGateway.actualizarCliente(cliente);
+    }
+    public boolean cambiarEstadoCuenta(Long id_Cliente){
+        try {
+            return clienteGateway.cambiarEstadoCuenta(id_Cliente);
+        }catch (Exception error){
+            System.out.println(error.getMessage());
+            return  false;
+        }
     }
 
 }

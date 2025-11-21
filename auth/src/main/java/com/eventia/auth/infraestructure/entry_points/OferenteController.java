@@ -13,7 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/oferente")
+@RequestMapping("/api/eventia/oferente")
 @RequiredArgsConstructor
 public class OferenteController {
 
@@ -22,10 +22,10 @@ public class OferenteController {
 
     @PostMapping("/saveOferente")
     public ResponseEntity<Oferente> saveOferente(@RequestBody OferenteData oferenteData) {
-        Oferente oferenteC = oferenteMapper.toOferente(oferenteData);
-        var Oferente = oferenteUseCase.guardarOferente(oferenteC);
+        Oferente oferente = oferenteMapper.toOferente(oferenteData);
+        var Oferente = oferenteUseCase.guardarOferente(oferente);
 
-        if (oferenteC.getNombre() != null) {
+        if (oferente.getNombre() != null) {
             return new ResponseEntity<>(Oferente, HttpStatus.OK);
         }
         return new ResponseEntity<>(Oferente, HttpStatus.NOT_FOUND);

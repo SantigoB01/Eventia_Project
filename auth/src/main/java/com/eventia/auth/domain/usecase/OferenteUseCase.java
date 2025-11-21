@@ -3,10 +3,12 @@ package com.eventia.auth.domain.usecase;
 import com.eventia.auth.domain.model.Oferente;
 import com.eventia.auth.domain.model.gateway.EncrypterGateway;
 import com.eventia.auth.domain.model.gateway.OferenteGateway;
+import lombok.RequiredArgsConstructor;
 
+@RequiredArgsConstructor
 public class OferenteUseCase {
-    private OferenteGateway oferenteGateway;
-    private EncrypterGateway encrypterGateway;
+    private final OferenteGateway oferenteGateway;
+    private final EncrypterGateway encrypterGateway;
 
     public Oferente guardarOferente (Oferente oferente) {
         if (oferente.getEmail() == null || oferente.getPassword() == null || oferente.getNombre() == null || oferente.getEdad() == null) {
@@ -52,6 +54,14 @@ public class OferenteUseCase {
         oferente.setPassword(passwordEncrypt);
 
         return oferenteGateway.actualizarOferente(oferente);
+    }
+    public boolean cambioEstadoCuenta(Long id_Oferente) {
+        try {
+            return oferenteGateway.cambioEstadoCuenta(id_Oferente);
+        }catch (Exception error){
+            System.out.println(error.getMessage());
+            return  false;
+        }
     }
 
 }

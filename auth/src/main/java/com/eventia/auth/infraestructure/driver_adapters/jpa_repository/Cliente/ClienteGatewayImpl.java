@@ -2,10 +2,7 @@ package com.eventia.auth.infraestructure.driver_adapters.jpa_repository.Cliente;
 
 import com.eventia.auth.domain.model.Cliente;
 import com.eventia.auth.domain.model.gateway.ClienteGateway;
-import com.eventia.auth.infraestructure.driver_adapters.jpa_repository.Oferente.OferenteData;
-import com.eventia.auth.infraestructure.driver_adapters.jpa_repository.Oferente.OferenteDataJpaRepository;
 import com.eventia.auth.infraestructure.mapper.ClienteMapper;
-import com.eventia.auth.infraestructure.mapper.OferenteMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 

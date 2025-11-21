@@ -32,17 +32,17 @@ public class ServiceController {
     @GetMapping("/{Id_Servicio}")
     public ResponseEntity<Servicio> obtenerServicio(@PathVariable Long Id_Servicio) {
         return servicioUseCase.obtenerServicioPorId(Id_Servicio)
-                .map(ResponseEntity::ok)
+                .map(mapper::)
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    @DeleteMapping("/delete/{Id_Servicio}"){
-    public ResponseEntity<String> eliminarServicio(@PathVariable Long Id_Servicio);
+    @DeleteMapping("/delete/{Id_Servicio}")
+    public ResponseEntity<String> eliminarServicio(@PathVariable Long Id_Servicio){
         try {
             servicioUseCase.eliminarServicio(Id_Servicio);
             return new ResponseEntity<>("Reserva eliminada correcto",HttpStatus.OK)
-        } catch (Exception e) {
-            throw new ResponseEntity<>("ERROR.", HttpStatus.NOT_FOUND);
+        } catch (RuntimeException e) {
+            return new ResponseEntity<>("ERROR.", HttpStatus.NOT_FOUND);
         }
 
     }

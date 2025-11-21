@@ -17,17 +17,6 @@ public class UsuarioController {
     private final UsuarioMapper usuarioMapper;
     private final UsuarioUseCase usuarioUseCase;
 
-    @PostMapping("/saveUsuario")
-    public ResponseEntity<Usuario> saveUsuario(@RequestBody UsuarioData usuarioData) {
-        Usuario usuarioConvertido = usuarioMapper.toUsuario(usuarioData);
-        var usuario = usuarioUseCase.guardarUsuario(usuarioConvertido);
-
-        if (usuarioConvertido.getNombre() != null) {
-            return new ResponseEntity<>(usuario, HttpStatus.OK);
-        }
-        return new ResponseEntity<>(usuario, HttpStatus.NOT_FOUND);
-    }
-
     @GetMapping("/{id}")
     public ResponseEntity<Usuario> findByIdUsuario(@PathVariable Long id) {
 

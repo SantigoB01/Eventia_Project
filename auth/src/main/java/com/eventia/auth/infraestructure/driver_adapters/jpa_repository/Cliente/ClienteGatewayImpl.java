@@ -15,26 +15,30 @@ public class ClienteGatewayImpl implements ClienteGateway {
 
     private final ClienteDataJpaRepository repository;
     private final ClienteMapper clienteMapper;
-    @Override
-    public Cliente registroCliente(Cliente cliente) {
-        ClienteData clienteData = clienteMapper.toData(cliente);
-        return clienteMapper.toCliente(repository.save(clienteData));
-    }
 
     @Override
-    public Cliente verPerfil(Cliente cliente) {
-        return repository.findById(cliente.getId_Usuario())
-                .map(clienteData -> clienteMapper.toCliente(clienteData))
-                .orElseThrow(() -> new RuntimeException("Perfil no encontrado"));
-    }
-
-    @Override
-    public Cliente editarCliente(Cliente cliente) {
+    public Cliente guardarCliente(Cliente cliente) {
         return null;
     }
 
     @Override
-    public boolean desactivarCuenta(Long id_Cliente) {
+    public void eliminarCliente(Long id_Cliente) {
+
+    }
+
+    @Override
+    public Cliente buscarPorId(Long id_Cliente) {
+        return null;
+    }
+
+    @Override
+    public Cliente actualizarCliente(Cliente cliente) {
+        return null;
+    }
+
+
+    @Override
+    public boolean cambiarEstadoCuenta(Long id_Cliente) {
         return false;
     }
 }

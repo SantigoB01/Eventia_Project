@@ -26,4 +26,32 @@ public class OferenteUseCase {
         //Oferente usuarioGuardado = oferenteGateway.guardarOferente(oferente);
         //return usuarioGuardado;
     }
+    public void eliminarOferentePorId(Long id_Oferente) {
+        try {
+            oferenteGateway.eliminarOferente(id_Oferente);
+        } catch (Exception error) {
+            System.out.println(error.getMessage());
+        }
+    }
+
+    public Oferente buscarOferentePorId(Long id_Oferente) {
+        try {
+            return oferenteGateway.buscarPorId(id_Oferente);
+        } catch (Exception error) {
+            System.out.println(error.getMessage());
+            return new Oferente();
+        }
+    }
+
+    public Oferente actualizarOferente(Oferente oferente) {
+        if (oferente.getId_Usuario() == null) {
+            throw new IllegalArgumentException("El ID es obligatorio");
+        }
+
+        String passwordEncrypt = encrypterGateway.encrypt(oferente.getPassword());
+        oferente.setPassword(passwordEncrypt);
+
+        return oferenteGateway.actualizarOferente(oferente);
+    }
+
 }

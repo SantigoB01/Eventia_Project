@@ -3,8 +3,9 @@ package com.eventia.auth.domain.model.gateway;
 import com.eventia.auth.domain.model.Cliente;
 
 public interface ClienteGateway {
-    public Cliente registroCliente(Cliente cliente);
-    public Cliente verPerfil(Cliente cliente);
-    public Cliente editarCliente(Cliente cliente);
-    public boolean desactivarCuenta(Long id_Cliente);
+    Cliente guardarCliente(Cliente cliente);
+    void eliminarCliente(Long id_Cliente);
+    Cliente buscarPorId(Long id_Cliente);
+    Cliente actualizarCliente(Cliente cliente);
+    boolean cambiarEstadoCuenta(Long id_Cliente);
 }

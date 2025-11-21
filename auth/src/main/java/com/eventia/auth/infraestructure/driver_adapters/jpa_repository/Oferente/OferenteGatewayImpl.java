@@ -1,7 +1,6 @@
 package com.eventia.auth.infraestructure.driver_adapters.jpa_repository.Oferente;
 
 import com.eventia.auth.domain.model.Oferente;
-import com.eventia.auth.domain.model.Usuario;
 import com.eventia.auth.domain.model.gateway.OferenteGateway;
 import com.eventia.auth.infraestructure.mapper.OferenteMapper;
 import lombok.RequiredArgsConstructor;
@@ -20,7 +19,7 @@ public class OferenteGatewayImpl implements OferenteGateway {
     }
 
     @Override
-    public void eliminarUsuario(Long id_Usuario) {
+    public void eliminarOferente(Long id_Usuario) {
 
     }
 
@@ -30,24 +29,13 @@ public class OferenteGatewayImpl implements OferenteGateway {
     }
 
     @Override
-    public Oferente actualizarUsuarioOferente(Oferente oferente) {
+    public Oferente actualizarOferente(Oferente oferente) {
         return null;
     }
 
-    @Override
-    public Oferente verPerfil(Oferente oferente) {
-        return repository.findById(oferente.getId_Usuario())
-                .map(oferenteData -> oferenteMapper.toOferente(oferenteData))
-                .orElseThrow(() -> new RuntimeException("Perfil no encontrado"));
-
-    }
 
     @Override
-    public Oferente editarperfilOferente(Oferente oferente) {
-        return null;
-    }
-    @Override
-    public boolean desactivarCuenta(Long id_Oferente) {
+    public boolean cambioEstadoCuenta(Long id_Oferente) {
         return false;
     }
 }

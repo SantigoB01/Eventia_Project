@@ -6,6 +6,7 @@ import com.eventia.auth.domain.model.Usuario;
 import java.util.List;
 
 public interface AdminGateway {
+    Usuario crearAdmin(Usuario usuario);
     List<Usuario> verListadoUsuarios();
     String cambiarRol(Long idUsuario, Rol rol);
     String resetearContraseña(Long idUsuario);

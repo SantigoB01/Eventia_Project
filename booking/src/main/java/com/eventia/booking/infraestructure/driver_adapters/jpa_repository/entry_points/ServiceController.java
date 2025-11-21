@@ -28,13 +28,14 @@ public class ServiceController {
     public ResponseEntity<List<Servicio>> listarServicios(@PathVariable ServiceData serviceData){
         return ResponseEntity.ok(servicioUseCase.listarServicios());
     }
-
+/// *
     @GetMapping("/{Id_Servicio}")
     public ResponseEntity<Servicio> obtenerServicio(@PathVariable Long Id_Servicio) {
         return servicioUseCase.obtenerServicioPorId(Id_Servicio)
                 .map(mapper::)
                 .orElse(ResponseEntity.notFound().build());
     }
+    *///
 
     @DeleteMapping("/delete/{Id_Servicio}")
     public ResponseEntity<String> eliminarServicio(@PathVariable Long Id_Servicio){

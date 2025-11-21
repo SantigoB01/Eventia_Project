@@ -51,4 +51,9 @@ public class BookingGatewayImpl implements BookingGateway {
     public void eliminarReserva(Long Id_Reserva){
         repository.deleteById(Id_Reserva);
     }
+
+    @Override
+    public List<Booking> obtenerReservasPorServicio(Long Id_Servicio){
+        return repository.findAllById_Servicio(Id_Servicio).stream().map(mapper::toBooking).toList();
+    }
 }

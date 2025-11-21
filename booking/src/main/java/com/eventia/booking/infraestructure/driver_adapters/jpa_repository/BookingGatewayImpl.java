@@ -46,3 +46,4 @@ public class BookingGatewayImpl implements BookingGateway {
         BookingData saved = repository.save(data);
         return mapper.toBooking(saved);
     }
+}

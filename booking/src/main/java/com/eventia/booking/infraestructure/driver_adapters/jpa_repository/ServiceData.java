@@ -1,7 +1,13 @@
 package com.eventia.booking.infraestructure.driver_adapters.jpa_repository;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@NoArgsConstructor
+@AllArgsConstructor
+@Data
 @Entity
 @Table(name = "servicio")
 public class ServiceData {
@@ -9,10 +15,10 @@ public class ServiceData {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_servicio")
-    private Integer idServicio;
+    private Long id_Servicio;
 
     @Column(name = "id_usuario_of", nullable = false)
-    private Integer idUsuarioOferente;
+    private Long id_Usuario_Oferente;
 
     @Column(nullable = false, length = 600)
     private String descripcion;
@@ -21,7 +27,7 @@ public class ServiceData {
     private Double costo;
 
     @Column(name = "tipo_servicio", nullable = false, length = 120)
-    private String tipoServicio;
+    private String tipo_Servicio;
 
     @Column(nullable = false, length = 120)
     private String ciudad;

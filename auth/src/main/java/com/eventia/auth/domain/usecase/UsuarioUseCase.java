@@ -11,7 +11,7 @@ public class UsuarioUseCase {
     private final UsuarioGateway usuarioGateway;
     private final EncrypterGateway encrypterGateway;
 
-    public Usuario guardarUsuario (Usuario usuario) {
+  /* public Usuario guardarUsuario (Usuario usuario) {
         if (usuario.getEmail() == null || usuario.getPassword() == null || usuario.getNombre() == null || usuario.getEdad() == null) {
             throw new NullPointerException("Ojo con eso, campos vacios");
 
@@ -28,7 +28,7 @@ public class UsuarioUseCase {
 
 
         return usuarioGuardado;
-    }
+    }*/
 
     public void eliminarUsuarioPorId(Long id_Usuario) {
         try{
@@ -69,13 +69,6 @@ public class UsuarioUseCase {
 
     }
 
-    public void registrarRol (Usuario usuario) {
-        try{
-
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
 
 }
 

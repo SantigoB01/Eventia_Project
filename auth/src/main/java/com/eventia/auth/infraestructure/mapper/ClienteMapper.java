@@ -9,14 +9,18 @@ public class ClienteMapper {
 
     public Cliente toCliente(ClienteData clienteData){
         return new Cliente(
-                clienteData.getTelefono()
+                clienteData.getTelefono(),
+                clienteData.getActivo(),
+                clienteData.getReseñaH()
+
         );
     }
 
     public ClienteData toData(Cliente cliente){
         return new ClienteData(
-                cliente.getId_Usuario(),
-                cliente.getTelefono()
+                cliente.getTelefono(),
+                cliente.getActivo(),
+                cliente.getReseñasH()
         );
     }
 }

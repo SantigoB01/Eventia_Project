@@ -1,6 +1,7 @@
 package com.eventia.auth.infraestructure.driver_adapters.jpa_repository.Oferente;
 
 import com.eventia.auth.domain.model.Oferente;
+import com.eventia.auth.domain.model.Usuario;
 import com.eventia.auth.domain.model.gateway.OferenteGateway;
 import com.eventia.auth.infraestructure.mapper.OferenteMapper;
 import lombok.RequiredArgsConstructor;
@@ -11,10 +12,26 @@ import org.springframework.stereotype.Repository;
 public class OferenteGatewayImpl implements OferenteGateway {
     private final OferenteMapper oferenteMapper;
     private final OferenteDataJpaRepository repository;
+
     @Override
-    public Oferente registroOferente(Oferente oferente) {
+    public Oferente guardarOferente(Oferente oferente) {
         OferenteData oferenteData = oferenteMapper.toData(oferente);
         return oferenteMapper.toOferente(repository.save (oferenteData));
+    }
+
+    @Override
+    public void eliminarUsuario(Long id_Usuario) {
+
+    }
+
+    @Override
+    public Oferente buscarPorId(Long id_Usuario) {
+        return null;
+    }
+
+    @Override
+    public Oferente actualizarUsuarioOferente(Oferente oferente) {
+        return null;
     }
 
     @Override
@@ -26,10 +43,9 @@ public class OferenteGatewayImpl implements OferenteGateway {
     }
 
     @Override
-    public Oferente editarCliente(Oferente oferente) {
+    public Oferente editarperfilOferente(Oferente oferente) {
         return null;
     }
-
     @Override
     public boolean desactivarCuenta(Long id_Oferente) {
         return false;

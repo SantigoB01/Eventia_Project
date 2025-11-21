@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 public class ClienteData {
-    @Id
-    private Long id_Usuario;
     private String telefono;
+    private Boolean activo;
+    private String reseñaH;
 }

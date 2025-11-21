@@ -79,7 +79,7 @@ public class AdminUseCase {
                 throw new IllegalArgumentException("El nombre de categoría es obligatorio");
             }
 
-            if (.existe(nombreC)) {
+            if (servicioGateway.obtenerCategoria(nombreC) == "Existe") {
                 throw new IllegalArgumentException("La categoría ya existe");
             }
 
@@ -89,11 +89,11 @@ public class AdminUseCase {
 
 
         public String eliminarCategoria(String nombreC) {
-            if (!categoriaGateway.existe(nombreC)) {
+            if (servicioGateway.obtenerCategoria(nombreC) == "No existe") {
                 throw new IllegalArgumentException("La categoría no existe");
             }
 
-            categoriaGateway.eliminarCategoria(nombreC);
+            servicioGateway.eliminarCategoria(nombreC);
             return "Categoría eliminada correctamente";
         }
     }

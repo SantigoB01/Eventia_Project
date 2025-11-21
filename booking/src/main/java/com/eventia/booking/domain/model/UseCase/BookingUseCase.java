@@ -14,11 +14,6 @@ public class BookingUseCase {
     private final ServicioGateway servicioGateway;
 
 /// Creacion de reserva///
-    public CrearReservaUseCase(BookingGateway reservaGateway, ServicioGateway servicioGateway) {
-        this.BookingGateway = reservaGateway;
-        this.servicioGateway = servicioGateway;
-    }
-
     public Booking ejecutar(Integer Id_Servicio, Integer Id_Cliente, LocalDate fecha, Integer horas) {
         Servicio servicio = servicioGateway.obtenerServicioPorId(Id_Servicio);
         if (servicio == null) throw new RuntimeException("Servicio no encontrado");

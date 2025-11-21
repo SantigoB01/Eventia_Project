@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -25,6 +26,12 @@ public class BookingData {
 
     @Column(name = "fecha_reserva", nullable = false)
     private LocalDate Fecha_Reserva;
+
+    @Column(name="fecha_inicio", nullable = false)
+    private LocalDateTime FechaInicio;
+
+    @Column(name="fecha_fin", nullable = false)
+    private LocalDateTime FechaFin;
 
     @Column(nullable = false, length = 120)
     private String Estado;

@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @AllArgsConstructor
 @Setter
@@ -17,6 +18,8 @@ public class Booking {
     private Long Id_Servicio;
     private Long Id_Usuario_Cliente;
     private LocalDate Fecha_Reserva;
+    private LocalDateTime FechaInicio;
+    private LocalDateTime FechaFin;
     private String Estado;
     private Double Total;
 }

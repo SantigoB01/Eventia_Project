@@ -10,5 +10,6 @@ public interface BookingGateway {
         Booking obtenerReservaPorId(Long Id_Reserva);
         List<Booking> listarReservasPorCliente(Long Id_Cliente);
         Booking actualizarReserva(Booking reserva);
-
+        void eliminarReserva(Long Id_Reserva);
+        List<Booking> obtenerReservasPorServicio(Long Id_Servicio);
 }

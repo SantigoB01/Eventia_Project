@@ -46,4 +46,9 @@ public class BookingGatewayImpl implements BookingGateway {
         BookingData saved = repository.save(data);
         return mapper.toBooking(saved);
     }
+
+    @Override
+    public void eliminarReserva(Long Id_Reserva){
+        repository.deleteById(Id_Reserva);
+    }
 }

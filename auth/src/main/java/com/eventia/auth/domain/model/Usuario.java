@@ -19,6 +19,5 @@ public class Usuario {
     private Rol rol;
     private Integer edad;
     private String ciudad;
-    private String numTelefono;
 
 }

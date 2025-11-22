@@ -33,7 +33,7 @@ public class ClienteUseCase {
         Notificacion mensajeNotificacion = Notificacion.builder()
                 .tipo("Registro Cliente")
                 .email(guardarCliente.getEmail())
-                .numTelefono(guardarCliente.getNumTelefono())
+                .telefono(guardarCliente.getTelefono())
                 .mensaje("Usuario registrado con exito")
                 .build();
 

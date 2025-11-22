@@ -9,33 +9,47 @@ import org.springframework.stereotype.Repository;
 @Repository
 @RequiredArgsConstructor
 public class OferenteGatewayImpl implements OferenteGateway {
+
     private final OferenteMapper oferenteMapper;
     private final OferenteDataJpaRepository repository;
 
     @Override
     public Oferente guardarOferente(Oferente oferente) {
         OferenteData oferenteData = oferenteMapper.toData(oferente);
-        return oferenteMapper.toOferente(repository.save (oferenteData));
+        return oferenteMapper.toOferente(repository.save(oferenteData));
     }
 
     @Override
-    public void eliminarOferente(Long id_Usuario) {
-
+    public void eliminarOferente(Long idUsuario) {
+        repository.deleteById(idUsuario);
     }
 
     @Override
-    public Oferente buscarPorId(Long id_Usuario) {
-        return null;
+    public Oferente buscarPorId(Long idUsuario) {
+        return repository.findById(idUsuario)
+                .map(oferenteMapper::toOferente)
+                .orElse(null);
     }
 
     @Override
     public Oferente actualizarOferente(Oferente oferente) {
-        return null;
+        if (!repository.existsById(oferente.getId_Usuario())) {
+            return null;
+        }
+        OferenteData data = oferenteMapper.toData(oferente);
+        return oferenteMapper.toOferente(repository.save(data));
     }
-
 
     @Override
-    public boolean cambioEstadoCuenta(Long id_Oferente) {
-        return false;
+    public boolean cambioEstadoCuenta(Long idOferente) {
+        OferenteData oferenteData = repository.findById(idOferente)
+                .orElseThrow(() -> new RuntimeException("El oferente no existe"));
+
+        boolean nuevoEstado = !oferenteData.getActivo();
+        oferenteData.setActivo(nuevoEstado);
+        repository.save(oferenteData);
+
+        return nuevoEstado;
     }
+
 }

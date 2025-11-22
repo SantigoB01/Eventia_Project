@@ -10,7 +10,7 @@ public class Cliente extends Usuario {
 
     private String telefono;
     private Boolean activo;
-    private String reseñasH;
+    private String resenasH;
 
     public Cliente() {
         super();

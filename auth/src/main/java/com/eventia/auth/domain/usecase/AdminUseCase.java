@@ -1,5 +1,6 @@
 package com.eventia.auth.domain.usecase;
 
+import com.eventia.auth.domain.model.Notificacion;
 import com.eventia.auth.domain.model.Rol;
 import com.eventia.auth.domain.model.Usuario;
 import com.eventia.auth.domain.model.gateway.AdminGateway;
@@ -27,8 +28,15 @@ public class AdminUseCase {
             String passwordEncrypt = encrypterGateway.encrypt(usuario.getPassword());
             usuario.setPassword(passwordEncrypt);
 
+            Usuario crearAdmin = adminGateway.crearAdmin(usuario);
 
-            return adminGateway.crearAdmin(usuario);
+            Notificacion notificacion = Notificacion.builder()
+                    .tipo("Admi_Agregado")
+                    .email(crearAdmin.getEmail())
+                    .mensaje("Cuenta Admin creada exitosamente")
+                    .build();
+
+            return crearAdmin;
         }
 
         public List<Usuario> verListadoUsuarios() {

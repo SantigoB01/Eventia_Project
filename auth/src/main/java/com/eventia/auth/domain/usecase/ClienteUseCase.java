@@ -66,7 +66,18 @@ public class ClienteUseCase {
         String passwordEncrypt = encrypterGateway.encrypt(cliente.getPassword());
         cliente.setPassword(passwordEncrypt);
 
-        return clienteGateway.actualizarCliente(cliente);
+        Cliente actualizarCliente = clienteGateway.actualizarCliente(cliente);
+
+        Notificacion mensajeNotificacion = Notificacion.builder()
+                .tipo("Actualizar Cliente")
+                .email(actualizarCliente.getEmail())
+                .telefono(actualizarCliente.getTelefono())
+                .mensaje("Actualizacion realiza con exito")
+                .build();
+
+        notificationGateway.enviarMensaje(mensajeNotificacion);
+
+        return actualizarCliente;
     }
     public boolean cambiarEstadoCuenta(Long id_Cliente){
         try {

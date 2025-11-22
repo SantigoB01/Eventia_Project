@@ -26,15 +26,15 @@ public class BookingGatewayImpl implements BookingGateway {
     }
 
     @Override
-    public Booking obtenerReservaPorId(Long Id_Reserva) {
-        return repository.findById(Id_Reserva)
+    public Booking obtenerReservaPorId(Long IdReserva) {
+        return repository.findById(IdReserva)
                 .map(mapper::toBooking)
                 .orElseThrow(() -> new RuntimeException("Reserva no encontrada"));
     }
 
     @Override
-    public List<Booking> listarReservasPorCliente(Long Id_Usuario_Cliente) {
-        return repository.findByIdUsuarioCliente(Id_Usuario_Cliente)
+    public List<Booking> listarReservasPorCliente(Long IdUsuarioCliente) {
+        return repository.findByIdUsuarioCliente(IdUsuarioCliente)
                 .stream()
                 .map(mapper::toBooking)
                 .collect(Collectors.toList());
@@ -45,5 +45,15 @@ public class BookingGatewayImpl implements BookingGateway {
         BookingData data = mapper.toData(reserva);
         BookingData saved = repository.save(data);
         return mapper.toBooking(saved);
+    }
+
+    @Override
+    public void eliminarReserva(Long IdReserva){
+        repository.deleteById(IdReserva);
+    }
+
+    @Override
+    public List<Booking> obtenerReservasPorServicio(Long IdServicio){
+        return repository.findAllByIdServicio(IdServicio).stream().map(mapper::toBooking).toList();
     }
 }

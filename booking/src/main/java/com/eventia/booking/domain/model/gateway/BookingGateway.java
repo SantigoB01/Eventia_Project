@@ -7,8 +7,9 @@ import java.util.List;
 
 public interface BookingGateway {
         Booking crearReserva(Booking reserva);
-        Booking obtenerReservaPorId(Long Id_Reserva);
-        List<Booking> listarReservasPorCliente(Long Id_Cliente);
+        Booking obtenerReservaPorId(Long IdReserva);
+        List<Booking> listarReservasPorCliente(Long IdCliente);
         Booking actualizarReserva(Booking reserva);
-
+        void eliminarReserva(Long IdReserva);
+        List<Booking> obtenerReservasPorServicio(Long IdServicio);
 }

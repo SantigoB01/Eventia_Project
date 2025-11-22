@@ -14,10 +14,10 @@ import java.util.Date;
 @NoArgsConstructor
 
 public class Servicio {
-    private Long Id_Servicio;
-    private Long Id_Usuario_Oferente;
-    private String Descripcion;
-    private Double Costo;
-    private String Tipo_Servicio;
-    private String Ciudad;
+    private Long idServicio;
+    private Long idUsuarioOferente;
+    private String descripcion;
+    private Double costo;
+    private String tipoServicio;
+    private String ciudad;
 }

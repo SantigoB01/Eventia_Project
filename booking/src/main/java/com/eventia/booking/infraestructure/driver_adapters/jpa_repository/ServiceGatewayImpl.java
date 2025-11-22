@@ -21,15 +21,37 @@ public class ServiceGatewayImpl implements ServicioGateway {
     private final ServiceMapper mapper;
 
     @Override
+    public Servicio crearServicio(Servicio servicio){
+       ServiceData serviceData = mapper.toData(servicio);
+        return mapper.toServicio(repository.save(serviceData));
+    }
+
+    @Override
+    public Servicio actualizarServicio(Servicio servicio){
+        ServiceData serviceDataAct = mapper.toData(servicio);
+
+        if (!repository.existsById(serviceDataAct.getIdServicio())){
+            throw new RuntimeException("Servicio con id: " + serviceDataAct.getIdServicio() + " no existe");
+        }
+        return mapper.toServicio(repository.save(serviceDataAct));
+    }
+
+    @Override
+    public void eliminarServicio(Long IdServicio){
+        if (repository.existsById(IdServicio)){
+            repository.deleteById(IdServicio);
+        } else {
+            System.out.println("Servicio no existente. ID SERVICE NOT FOUND");
+        }
+    }
+
+    @Override
     public List<Servicio> listarServicios() {
-        return repository.findAll().stream().map(this::toDomain).collect(Collectors.toList());
+        return repository.findAll().stream().map(mapper::toServicio).collect(Collectors.toList());
     }
 
-    @Override public Servicio obtenerServicioPorId(Long Id_Servicio){
-        return repository.findById(id).map(this::toDomain).orElse(null);
+    @Override public Servicio obtenerServicioPorId(Long IdServicio){
+        return repository.findById(IdServicio).map(mapper::toServicio).orElse(null);
     }
 
-    private Servicio toDomain(ServiceData d) {
-        return new Servicio();
-    }
 }

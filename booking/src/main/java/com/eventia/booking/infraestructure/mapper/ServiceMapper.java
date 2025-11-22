@@ -9,22 +9,22 @@ public class ServiceMapper {
 
         public Servicio toServicio(ServiceData ServicioData){
             return new Servicio(
-                    ServicioData.getId_Servicio(),
-                    ServicioData.getId_Usuario_Oferente(),
+                    ServicioData.getIdServicio(),
+                    ServicioData.getIdUsuarioOferente(),
                     ServicioData.getDescripcion(),
                     ServicioData.getCosto(),
-                    ServicioData.getTipo_Servicio(),
+                    ServicioData.getTipoServicio(),
                     ServicioData.getCiudad()
             );
         }
 
         public ServiceData toData(Servicio servicio){
             return new ServiceData(
-                    servicio.getId_Servicio(),
-                    servicio.getId_Usuario_Oferente(),
+                    servicio.getIdServicio(),
+                    servicio.getIdUsuarioOferente(),
                     servicio.getDescripcion(),
                     servicio.getCosto(),
-                    servicio.getTipo_Servicio(),
+                    servicio.getTipoServicio(),
                     servicio.getCiudad());
         }
 }

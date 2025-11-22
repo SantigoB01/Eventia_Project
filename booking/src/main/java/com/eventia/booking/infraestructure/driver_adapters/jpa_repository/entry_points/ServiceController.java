@@ -1,26 +1,51 @@
 package com.eventia.booking.infraestructure.driver_adapters.jpa_repository.entry_points;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+
+import com.eventia.booking.domain.model.Servicio;
+import com.eventia.booking.domain.model.UseCase.ServicioUseCase;
+import com.eventia.booking.infraestructure.driver_adapters.jpa_repository.ServiceData;
+import com.eventia.booking.infraestructure.mapper.ServiceMapper;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/services")
+@RequiredArgsConstructor
 public class ServiceController {
+    private final ServiceMapper mapper;
+    private final ServicioUseCase servicioUseCase;
 
-    @Autowired
-    private ServiceRepository repository;
-
-    @GetMapping
-    public List<ServiceEntity> getAll() {
-        return repository.findAll();
+    @PostMapping("/newService")
+    public ResponseEntity<Servicio> crearServicio(@RequestBody Servicio servicio) {
+        return ResponseEntity.ok(servicioUseCase.crearServicio(servicio));
     }
 
-    @GetMapping("/{id}")
-    public ServiceEntity getOne(@PathVariable Integer id) {
-        return repository.findById(id)
-                .orElseThrow(() -> new RuntimeException("No encontrado"));
+    @GetMapping("/view")
+    public ResponseEntity<List<Servicio>> listarServicios(@PathVariable ServiceData serviceData){
+        return ResponseEntity.ok(servicioUseCase.listarServicios(serviceData));
     }
-}
+
+    @GetMapping("/{Id_Servicio}")
+    public Servicio obtenerServicio(@PathVariable Long Id_Servicio) {
+        return servicioUseCase.obtenerServicioPorId(Id_Servicio);
+    }
+
+
+    @DeleteMapping("/delete/{Id_Servicio}")
+    public ResponseEntity<String> eliminarServicio(@PathVariable Long Id_Servicio){
+        try {
+            servicioUseCase.eliminarServicio(Id_Servicio);
+            return new ResponseEntity<>("Reserva eliminada correcto",HttpStatus.OK);
+        } catch (RuntimeException e) {
+            return new ResponseEntity<>("ERROR.", HttpStatus.NOT_FOUND);
+        }
+
+    }
+
+
+
+    }

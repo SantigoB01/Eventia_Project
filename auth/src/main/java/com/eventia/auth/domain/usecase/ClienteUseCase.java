@@ -2,6 +2,7 @@ package com.eventia.auth.domain.usecase;
 
 import com.eventia.auth.domain.model.Cliente;
 import com.eventia.auth.domain.model.Notificacion;
+import com.eventia.auth.domain.model.Rol;
 import com.eventia.auth.domain.model.gateway.ClienteGateway;
 import com.eventia.auth.domain.model.gateway.EncrypterGateway;
 import com.eventia.auth.domain.model.gateway.NotificationGateway;
@@ -27,6 +28,7 @@ public class ClienteUseCase {
         }
         String passwordEncrypt =encrypterGateway.encrypt(cliente.getPassword());
         cliente.setPassword(passwordEncrypt);
+        cliente.setRol(Rol.CLIENTE);
 
         Cliente guardarCliente = clienteGateway.guardarCliente(cliente);
 
@@ -34,10 +36,15 @@ public class ClienteUseCase {
                 .tipo("Registro Cliente")
                 .email(guardarCliente.getEmail())
                 .telefono(guardarCliente.getTelefono())
-                .mensaje("Usuario registrado con exito")
+                .mensaje(" Usuario registrado con exito")
                 .build();
 
-        notificationGateway.enviarMensaje(mensajeNotificacion);
+        try{notificationGateway.enviarMensaje(mensajeNotificacion);}
+        catch(Exception e){
+            System.out.println("Error al enviar mensaje");
+            System.out.println(e.getMessage());
+            return guardarCliente;
+        }
 
         return guardarCliente;
     }
@@ -66,7 +73,18 @@ public class ClienteUseCase {
         String passwordEncrypt = encrypterGateway.encrypt(cliente.getPassword());
         cliente.setPassword(passwordEncrypt);
 
-        return clienteGateway.actualizarCliente(cliente);
+        Cliente actualizarCliente = clienteGateway.actualizarCliente(cliente);
+
+        Notificacion mensajeNotificacion = Notificacion.builder()
+                .tipo("Actualizar Cliente")
+                .email(actualizarCliente.getEmail())
+                .telefono(actualizarCliente.getTelefono())
+                .mensaje("Actualizacion realiza con exito")
+                .build();
+
+        notificationGateway.enviarMensaje(mensajeNotificacion);
+
+        return actualizarCliente;
     }
     public boolean cambiarEstadoCuenta(Long id_Cliente){
         try {

@@ -3,6 +3,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.cglib.core.Local;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -18,25 +19,25 @@ public class BookingData {
     @Column(name = "idreserva")
     private Long idReserva;
 
-    @Column(name = "idservicio", nullable = false)
+    @Column(name = "idservicio")
     private Long idServicio;
 
-    @Column(name = "idusuariocliente", nullable = false)
+    @Column(name = "idusuariocliente")
     private Long idUsuarioCliente;
 
-    @Column(name = "fechAreserva", nullable = false)
+    @Column(name = "fechAreserva")
     private LocalDate fechaReserva;
 
-    @Column(name="fechainicio", nullable = false)
+    @Column(name="fechainicio")
     private LocalDateTime fechaInicio;
 
-    @Column(name="fecha_fin", nullable = false)
+    @Column(name="fecha_fin")
     private LocalDateTime fechaFin;
 
-    @Column(nullable = false, length = 120)
+    @Column( length = 120)
     private String estado;
 
-    @Column(nullable = false)
+    @Column
     private Double total;
 
 }

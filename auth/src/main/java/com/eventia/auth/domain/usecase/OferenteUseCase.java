@@ -1,5 +1,7 @@
 package com.eventia.auth.domain.usecase;
 
+import com.eventia.auth.domain.model.Cliente;
+import com.eventia.auth.domain.model.Notificacion;
 import com.eventia.auth.domain.model.Oferente;
 import com.eventia.auth.domain.model.gateway.EncrypterGateway;
 import com.eventia.auth.domain.model.gateway.NotificationGateway;
@@ -26,9 +28,22 @@ public class OferenteUseCase {
         String passwordEncrypt =encrypterGateway.encrypt(oferente.getPassword());
         oferente.setPassword(passwordEncrypt);
 
-        return oferenteGateway.guardarOferente(oferente);
-        //Oferente usuarioGuardado = oferenteGateway.guardarOferente(oferente);
-        //return usuarioGuardado;
+        Oferente usuarioGuardado = oferenteGateway.guardarOferente(oferente);
+
+        Notificacion mensajeNotificacion = Notificacion.builder()
+                .tipo("Registro Cliente")
+                .email(usuarioGuardado.getEmail())
+                .telefono(usuarioGuardado.getTelefono())
+                .mensaje(" Usuario registrado con exito")
+                .build();
+
+        try{notificationGateway.enviarMensaje(mensajeNotificacion);}
+        catch(Exception e){
+            System.out.println("Error al enviar mensaje");
+            System.out.println(e.getMessage());
+            return usuarioGuardado;
+        }
+        return usuarioGuardado;
     }
     public void eliminarOferentePorId(Long id_Oferente) {
         try {

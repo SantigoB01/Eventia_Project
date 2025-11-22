@@ -27,7 +27,7 @@ public class ServiceData {
     private Double costo;
 
     @Column(name = "tipo_servicio", nullable = false, length = 120)
-    private String tipoServicio;
+    private String tipo;
 
     @Column(nullable = false, length = 120)
     private String ciudad;

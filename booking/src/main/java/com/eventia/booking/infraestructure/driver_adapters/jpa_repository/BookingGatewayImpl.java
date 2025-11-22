@@ -1,5 +1,6 @@
 package com.eventia.booking.infraestructure.driver_adapters.jpa_repository;
 
+import com.eventia.booking.domain.exception.ReservaNoEncontradaException;
 import com.eventia.booking.domain.model.Booking;
 import com.eventia.booking.domain.model.gateway.BookingGateway;
 import com.eventia.booking.infraestructure.mapper.BookingMapper;
@@ -26,10 +27,10 @@ public class BookingGatewayImpl implements BookingGateway {
     }
 
     @Override
-    public Booking obtenerReservaPorId(Long IdReserva) {
-        return repository.findById(IdReserva)
+    public Booking obtenerReservaPorId(Long idReserva) {
+        return repository.findById(idReserva)
                 .map(mapper::toBooking)
-                .orElseThrow(() -> new RuntimeException("Reserva no encontrada"));
+                .orElseThrow(() -> new ReservaNoEncontradaException(idReserva));
     }
 
     @Override

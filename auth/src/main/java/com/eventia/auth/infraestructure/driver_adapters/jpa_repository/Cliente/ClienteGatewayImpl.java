@@ -15,6 +15,18 @@ public class ClienteGatewayImpl implements ClienteGateway {
 
     @Override
     public Cliente guardarCliente(Cliente cliente) {
+
+        if (repository.existsByEmail(cliente.getEmail())) {
+            throw new IllegalArgumentException("Ya existe un cliente registrado con este correo.");
+        }
+
+        if (repository.existsByTelefono(cliente.getTelefono())) {
+            throw new IllegalArgumentException("Ya existe un cliente registrado con este teléfono.");
+        }
+        if (cliente.getId_Usuario() != null) {
+            throw new IllegalArgumentException("No está permitido sobrescribir un oferente existente.");
+        }
+
         ClienteData clienteData = clienteMapper.toData(cliente);
         return clienteMapper.toCliente(repository.save(clienteData));
     }

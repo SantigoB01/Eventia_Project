@@ -1,9 +1,13 @@
 package com.eventia.booking.infraestructure.driver_adapters.jpa_repository.entry_points;
 
 
+import com.eventia.booking.domain.exception.ReservaNoEncontradaException;
 import com.eventia.booking.domain.model.Booking;
 import com.eventia.booking.domain.model.UseCase.BookingUseCase;
 import com.eventia.booking.infraestructure.driver_adapters.jpa_repository.BookingData;
+import com.eventia.booking.infraestructure.driver_adapters.jpa_repository.entry_points.dto.request.BookingRequestDTO;
+import com.eventia.booking.infraestructure.driver_adapters.jpa_repository.entry_points.dto.response.BookingResponseDTO;
+import com.eventia.booking.infraestructure.mapper.BookingDtoMapper;
 import com.eventia.booking.infraestructure.mapper.BookingMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -18,28 +22,28 @@ import java.util.List;
 public class BookingController {
     private final BookingMapper mapper;
     private final BookingUseCase bookingUseCase;
+    private final BookingDtoMapper bookingDtoMapper;
 
     @PostMapping("/crearReserva")
-    public ResponseEntity<Booking> crearReserva(@RequestBody BookingData reservadata) {
-        Booking reservaConvertida = mapper.toBooking(reservadata);
-        var reserva = bookingUseCase.crearReserva(reservaConvertida);
+    public BookingResponseDTO crearReserva(@RequestBody BookingRequestDTO request) {
+        var booking = bookingDtoMapper.toDomain(request);
+        var created = bookingUseCase.crearReserva(booking);
+        return bookingDtoMapper.toResponse(created);
 
-        if (reservaConvertida.getEstado() != null) {
-            return new ResponseEntity<>(reserva, HttpStatus.OK);
-        }
-        return new ResponseEntity<>(reserva, HttpStatus.NOT_FOUND);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Booking> ObtenerReservaPorId(@PathVariable Long IdReserva) {
+    public ResponseEntity<BookingResponseDTO> obtenerReservaPorId(@PathVariable("id") Long id) {
 
-            Booking reserva = bookingUseCase.obtenerReservaPorId(IdReserva);
+        Booking booking = bookingUseCase.obtenerReservaPorId(id);
 
-            if (reserva.getIdReserva() != null) {
-                return new ResponseEntity<>(reserva, HttpStatus.OK);
-            }
-            return new ResponseEntity<>(reserva, HttpStatus.NOT_FOUND);
+        if (booking == null) {
+            throw new ReservaNoEncontradaException(id);
         }
+
+        BookingResponseDTO response = bookingDtoMapper.toResponse(booking);
+        return ResponseEntity.ok(response);
+    }
 
     @GetMapping("/{Id_Servicio}")
     public ResponseEntity<List<Booking>> listarReservasPorServicio(@PathVariable Long IdServicio) {

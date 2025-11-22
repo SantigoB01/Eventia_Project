@@ -1,8 +1,10 @@
 package com.eventia.auth.domain.usecase;
 
 import com.eventia.auth.domain.model.Cliente;
+import com.eventia.auth.domain.model.Notificacion;
 import com.eventia.auth.domain.model.gateway.ClienteGateway;
 import com.eventia.auth.domain.model.gateway.EncrypterGateway;
+import com.eventia.auth.domain.model.gateway.NotificationGateway;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
@@ -10,6 +12,7 @@ public class ClienteUseCase {
 
     private final ClienteGateway clienteGateway;
     private final EncrypterGateway encrypterGateway;
+    private final NotificationGateway notificationGateway;
 
     public Cliente guardarCliente (Cliente cliente) {
         if (cliente.getEmail() == null || cliente.getPassword() == null || cliente.getNombre() == null || cliente.getEdad() == null) {
@@ -25,7 +28,18 @@ public class ClienteUseCase {
         String passwordEncrypt =encrypterGateway.encrypt(cliente.getPassword());
         cliente.setPassword(passwordEncrypt);
 
-        return clienteGateway.guardarCliente(cliente);
+        Cliente guardarCliente = clienteGateway.guardarCliente(cliente);
+
+        Notificacion mensajeNotificacion = Notificacion.builder()
+                .tipo("Registro Cliente")
+                .email(guardarCliente.getEmail())
+                .numTelefono(guardarCliente.getNumTelefono())
+                .mensaje("Usuario registrado con exito")
+                .build();
+
+        notificationGateway.enviarMensaje(mensajeNotificacion);
+
+        return guardarCliente;
     }
     public void eliminarClientePorId(Long id_Cliente) {
         try {

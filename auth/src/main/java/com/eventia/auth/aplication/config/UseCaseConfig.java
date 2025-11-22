@@ -1,4 +1,4 @@
-package com.eventia.auth.aplication;
+package com.eventia.auth.aplication.config;
 
 import com.eventia.auth.domain.model.gateway.*;
 import com.eventia.auth.domain.usecase.AdminUseCase;
@@ -15,13 +15,13 @@ public class UseCaseConfig {
             return new UsuarioUseCase(usuarioGateway, encrypterGatway);
         }
         @Bean
-        public ClienteUseCase clienteUseCase(ClienteGateway clienteGateway,EncrypterGateway encrypterGateway) {
-            return new ClienteUseCase(clienteGateway, encrypterGateway);
+        public ClienteUseCase clienteUseCase(ClienteGateway clienteGateway,EncrypterGateway encrypterGateway, NotificationGateway notificationGateway) {
+            return new ClienteUseCase(clienteGateway, encrypterGateway, notificationGateway);
         }
 
         @Bean
-        public OferenteUseCase oferenteUseCase(OferenteGateway oferenteGateway,EncrypterGateway encrypterGateway) {
-            return new OferenteUseCase(oferenteGateway, encrypterGateway);
+        public OferenteUseCase oferenteUseCase(OferenteGateway oferenteGateway,EncrypterGateway encrypterGateway, NotificationGateway notificationGateway) {
+            return new OferenteUseCase(oferenteGateway, encrypterGateway, notificationGateway);
         }
 
         @Bean

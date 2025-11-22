@@ -27,6 +27,7 @@ public class AdminUseCase {
             String passwordEncrypt = encrypterGateway.encrypt(usuario.getPassword());
             usuario.setPassword(passwordEncrypt);
 
+
             return adminGateway.crearAdmin(usuario);
         }
 

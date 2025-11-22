@@ -10,4 +10,7 @@ public interface ServicioGateway {
     void eliminarServicio (Long IdServicio);
     List<Servicio> listarServicios();
     Servicio obtenerServicioPorId(Long IdServicio);
+    List<Servicio> buscarPorCiudad(String ciudad);
+    List<Servicio> buscarPorTipoServicio(String tipo);
+    List<Servicio> buscarPorOferente(Long idUsuarioOferente);
 }

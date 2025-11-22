@@ -20,4 +20,5 @@ public class Servicio {
     private Double costo;
     private String tipoServicio;
     private String ciudad;
+
 }

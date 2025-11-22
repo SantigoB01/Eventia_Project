@@ -1,39 +1,42 @@
 package com.eventia.booking.infraestructure.driver_adapters.jpa_repository.entry_points;
 
-
-import com.eventia.booking.domain.exception.ReservaNoEncontradaException;
-import com.eventia.booking.domain.model.Booking;
-import com.eventia.booking.domain.model.UseCase.BookingUseCase;
-import com.eventia.booking.infraestructure.driver_adapters.jpa_repository.BookingData;
 import com.eventia.booking.infraestructure.driver_adapters.jpa_repository.entry_points.dto.request.BookingRequestDTO;
 import com.eventia.booking.infraestructure.driver_adapters.jpa_repository.entry_points.dto.response.BookingResponseDTO;
 import com.eventia.booking.infraestructure.mapper.BookingDtoMapper;
-import com.eventia.booking.infraestructure.mapper.BookingMapper;
+import com.eventia.booking.domain.model.Booking;
+import com.eventia.booking.domain.model.UseCase.BookingUseCase;
+import com.eventia.booking.domain.exception.ReservaNoEncontradaException;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/api/booking")
+@RequestMapping("/api/bookings")
 @RequiredArgsConstructor
 public class BookingController {
-    private final BookingMapper mapper;
+
     private final BookingUseCase bookingUseCase;
-    private final BookingDtoMapper bookingDtoMapper;
+    private final BookingDtoMapper bookingMapper;
+
+    // -----------------------------------------------------------
 
     @PostMapping("/crearReserva")
-    public BookingResponseDTO crearReserva(@RequestBody BookingRequestDTO request) {
-        var booking = bookingDtoMapper.toDomain(request);
-        var created = bookingUseCase.crearReserva(booking);
-        return bookingDtoMapper.toResponse(created);
+    public ResponseEntity<BookingResponseDTO> crearReserva(
+            @RequestBody BookingRequestDTO request) {
 
+        Booking booking = bookingMapper.toDomain(request);
+        Booking creada = bookingUseCase.crearReserva(booking);
+
+        return ResponseEntity.ok(bookingMapper.toResponse(creada));
     }
 
+    // -----------------------------------------------------------
+
     @GetMapping("/{id}")
-    public ResponseEntity<BookingResponseDTO> obtenerReservaPorId(@PathVariable("id") Long id) {
+    public ResponseEntity<BookingResponseDTO> obtenerPorId(@PathVariable Long id) {
 
         Booking booking = bookingUseCase.obtenerReservaPorId(id);
 
@@ -41,39 +44,83 @@ public class BookingController {
             throw new ReservaNoEncontradaException(id);
         }
 
-        BookingResponseDTO response = bookingDtoMapper.toResponse(booking);
+        return ResponseEntity.ok(bookingMapper.toResponse(booking));
+    }
+
+    // -----------------------------------------------------------
+
+    @GetMapping("/verTodasReservas/{idUsuarioCliente}")
+    public ResponseEntity<List<BookingResponseDTO>> listarReservas(@PathVariable Long idUsuarioCliente) {
+
+        List<Booking> bookings = bookingUseCase.listarReservas(idUsuarioCliente);
+
+        List<BookingResponseDTO> response = bookings.stream()
+                .map(bookingMapper::toResponse)
+                .collect(Collectors.toList());
+
         return ResponseEntity.ok(response);
     }
 
-    @GetMapping("/{Id_Servicio}")
-    public ResponseEntity<List<Booking>> listarReservasPorServicio(@PathVariable Long IdServicio) {
-        return ResponseEntity.ok(bookingUseCase.listarReservas(IdServicio));
+    // -----------------------------------------------------------
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<Void> eliminarReserva(@PathVariable Long id) {
+
+        bookingUseCase.eliminarReserva(id);
+        return ResponseEntity.noContent().build();
     }
 
-    @DeleteMapping("/eliminar/{Id_Reserva}")
-    public ResponseEntity<?> eliminarReserva(@PathVariable Long IdReserva)
-    {
-        try{
-            bookingUseCase.eliminarReserva(IdReserva);
-            return new ResponseEntity<>("Reserva eliminada", HttpStatus.OK);
+    // -----------------------------------------------------------
 
-        } catch (RuntimeException e){
-            return new ResponseEntity<>("Error al eliminar", HttpStatus.NOT_FOUND);
-        }
+    @PutMapping("/{id}/cancelar")
+    public ResponseEntity<BookingResponseDTO> cancelar(@PathVariable Long id) {
 
+        Booking booking = bookingUseCase.cancelarReserva(id);
+
+        return ResponseEntity.ok(bookingMapper.toResponse(booking));
     }
 
-    @PutMapping("/update")
-    public ResponseEntity<Booking> actualizarReserva(@RequestBody BookingData reservaData){
-        try{
-            Booking reserva = mapper.toBooking(reservaData);
-            Booking reservaValidadaAct = bookingUseCase.actualizarReserva(reserva);
-            return new ResponseEntity<>(reservaValidadaAct, HttpStatus.OK);
-        } catch (Exception error){
-            return ResponseEntity.notFound().build();
-        }
+    // -----------------------------------------------------------
+
+    @GetMapping("/usuario/{idUsuario}")
+    public ResponseEntity<List<BookingResponseDTO>> obtenerPorUsuario(@PathVariable Long idUsuario) {
+
+        List<Booking> bookings = bookingUseCase.obtenerReservasPorUsuario(idUsuario);
+
+        List<BookingResponseDTO> response = bookings.stream()
+                .map(bookingMapper::toResponse)
+                .collect(Collectors.toList());
+
+        return ResponseEntity.ok(response);
     }
 
+    // -----------------------------------------------------------
+
+    @GetMapping("/servicio/{idServicio}")
+    public ResponseEntity<List<BookingResponseDTO>> obtenerPorServicio(@PathVariable Long idServicio) {
+
+        List<Booking> bookings = bookingUseCase.obtenerReservasPorServicio(idServicio);
+
+        List<BookingResponseDTO> response = bookings.stream()
+                .map(bookingMapper::toResponse)
+                .collect(Collectors.toList());
+
+        return ResponseEntity.ok(response);
+    }
+
+    // -----------------------------------------------------------
+
+    @GetMapping("/activas")
+    public ResponseEntity<List<BookingResponseDTO>> activas() {
+
+        List<Booking> bookings = bookingUseCase.obtenerReservasActivas();
+
+        List<BookingResponseDTO> response = bookings.stream()
+                .map(bookingMapper::toResponse)
+                .collect(Collectors.toList());
+
+        return ResponseEntity.ok(response);
+    }
 }
 
 

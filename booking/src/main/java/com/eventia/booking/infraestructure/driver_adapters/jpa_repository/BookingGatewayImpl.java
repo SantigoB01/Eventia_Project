@@ -1,60 +1,89 @@
 package com.eventia.booking.infraestructure.driver_adapters.jpa_repository;
 
-import com.eventia.booking.domain.exception.ReservaNoEncontradaException;
+
 import com.eventia.booking.domain.model.Booking;
 import com.eventia.booking.domain.model.gateway.BookingGateway;
 import com.eventia.booking.infraestructure.mapper.BookingMapper;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Repository
 @RequiredArgsConstructor
-@Component
+@Transactional
 public class BookingGatewayImpl implements BookingGateway {
 
-    private final BookingDataJpaRepository repository;
-    private final BookingMapper mapper;
+    private final BookingDataJpaRepository bookingRepository;
+    private final BookingMapper bookingMapper;
 
     @Override
-    public Booking crearReserva(Booking reserva) {
-        BookingData data = mapper.toData(reserva);
-        BookingData saved = repository.save(data);
-        return mapper.toBooking(saved);
+    public Booking crearReserva(Booking booking) {
+        BookingData entity = bookingMapper.toData(booking);
+        BookingData saved = bookingRepository.save(entity);
+        return bookingMapper.toBooking(saved);
     }
 
     @Override
-    public Booking obtenerReservaPorId(Long idReserva) {
-        return repository.findById(idReserva)
-                .map(mapper::toBooking)
-                .orElseThrow(() -> new ReservaNoEncontradaException(idReserva));
+    public Booking obtenerReservaPorId(Long id) {
+        return bookingRepository.findById(id)
+                .map(bookingMapper::toBooking)
+                .orElse(null);
     }
 
     @Override
-    public List<Booking> listarReservasPorCliente(Long IdUsuarioCliente) {
-        return repository.findByIdUsuarioCliente(IdUsuarioCliente)
+    public List<Booking> listarReservas() {
+        return bookingRepository.findAll()
                 .stream()
-                .map(mapper::toBooking)
+                .map(bookingMapper::toBooking)
+                .collect(Collectors.toList());
+    }
+
+
+    @Override
+    public List<Booking> listarReservasPorUsuario(Long idUsuario) {
+        return bookingRepository.findByIdUsuarioCliente(idUsuario)
+                .stream()
+                .map(bookingMapper::toBooking)
                 .collect(Collectors.toList());
     }
 
     @Override
-    public Booking actualizarReserva(Booking reserva) {
-        BookingData data = mapper.toData(reserva);
-        BookingData saved = repository.save(data);
-        return mapper.toBooking(saved);
+    public List<Booking> listarReservasPorServicio(Long idServicio) {
+        return bookingRepository.findByIdServicio(idServicio)
+                .stream()
+                .map(bookingMapper::toBooking)
+                .collect(Collectors.toList());
     }
 
     @Override
-    public void eliminarReserva(Long IdReserva){
-        repository.deleteById(IdReserva);
+    public List<Booking> listarReservasActivas() {
+        return bookingRepository.findByEstado("ACTIVO")
+                .stream()
+                .map(bookingMapper::toBooking)
+                .collect(Collectors.toList());
     }
 
     @Override
-    public List<Booking> obtenerReservasPorServicio(Long IdServicio){
-        return repository.findAllByIdServicio(IdServicio).stream().map(mapper::toBooking).toList();
+    public Booking actualizarReserva(Booking booking) {
+        BookingData entity = bookingMapper.toData(booking);
+        BookingData updated = bookingRepository.save(entity);
+        return bookingMapper.toBooking(updated);
+    }
+
+    @Override
+    public void eliminarReserva(Long id) {
+        bookingRepository.deleteById(id);
+    }
+
+    @Override
+    public List<Booking> listarReservasPorFecha(LocalDate fecha) {
+        return bookingRepository.findByFechaReserva(fecha)
+                .stream()
+                .map(bookingMapper::toBooking)
+                .collect(Collectors.toList());
     }
 }

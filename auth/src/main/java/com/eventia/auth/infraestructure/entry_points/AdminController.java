@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/admin")
+@RequestMapping("/api/eventia/admin")
 @RequiredArgsConstructor
 public class AdminController {
 
@@ -58,7 +58,7 @@ public class AdminController {
     }
     //    FUNCIONES SOLO DE ADMIN
 
-    @GetMapping("/listarTodos")
+    @GetMapping("/listar")
     public ResponseEntity<List<Usuario>> listarTodos() {
         List<Usuario> usuarios = adminUseCase.verListadoUsuarios();
         return ResponseEntity.ok(usuarios);

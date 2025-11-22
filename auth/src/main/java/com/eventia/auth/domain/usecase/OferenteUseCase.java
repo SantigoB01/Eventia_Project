@@ -2,6 +2,7 @@ package com.eventia.auth.domain.usecase;
 
 import com.eventia.auth.domain.model.Oferente;
 import com.eventia.auth.domain.model.gateway.EncrypterGateway;
+import com.eventia.auth.domain.model.gateway.NotificationGateway;
 import com.eventia.auth.domain.model.gateway.OferenteGateway;
 import lombok.RequiredArgsConstructor;
 
@@ -9,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 public class OferenteUseCase {
     private final OferenteGateway oferenteGateway;
     private final EncrypterGateway encrypterGateway;
+    private final NotificationGateway notificationGateway;
 
     public Oferente guardarOferente (Oferente oferente) {
         if (oferente.getEmail() == null || oferente.getPassword() == null || oferente.getNombre() == null || oferente.getEdad() == null) {

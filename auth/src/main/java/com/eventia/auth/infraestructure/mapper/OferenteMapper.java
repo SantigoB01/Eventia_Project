@@ -10,7 +10,6 @@ public class OferenteMapper {
     public Oferente toOferente(OferenteData oferenteData){
         Oferente oferente = new Oferente();
 
-        // CAMPOS DEL PADRE (Usuario)
         oferente.setId_Usuario(oferenteData.getId_Usuario());
         oferente.setNombre(oferenteData.getNombre());
         oferente.setEmail(oferenteData.getEmail());
@@ -19,7 +18,6 @@ public class OferenteMapper {
         oferente.setEdad(oferenteData.getEdad());
         oferente.setCiudad(oferenteData.getCiudad());
 
-        // CAMPOS DEL HIJO (Oferente)
         oferente.setNombre_Artistico(oferenteData.getNombreArtistico());
         oferente.setEspecialidad(oferenteData.getEspecialidad());
         oferente.setTelefono(oferenteData.getTelefono());

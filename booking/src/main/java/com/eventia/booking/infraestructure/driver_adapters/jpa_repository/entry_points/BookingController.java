@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/eventia/booking")
+@RequestMapping("/api/booking")
 @RequiredArgsConstructor
 public class BookingController {
     private final BookingMapper mapper;
@@ -31,26 +31,26 @@ public class BookingController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Booking> ObtenerReservaPorId(@PathVariable Long Id_Reserva) {
+    public ResponseEntity<Booking> ObtenerReservaPorId(@PathVariable Long IdReserva) {
 
-            Booking reserva = bookingUseCase.obtenerReservaPorId(Id_Reserva);
+            Booking reserva = bookingUseCase.obtenerReservaPorId(IdReserva);
 
-            if (reserva.getId_Reserva() != null) {
+            if (reserva.getIdReserva() != null) {
                 return new ResponseEntity<>(reserva, HttpStatus.OK);
             }
             return new ResponseEntity<>(reserva, HttpStatus.NOT_FOUND);
         }
 
     @GetMapping("/{Id_Servicio}")
-    public ResponseEntity<List<Booking>> listarReservasPorServicio(@PathVariable Long Id_Usuario_Cliente) {
-        return ResponseEntity.ok(bookingUseCase.listarReservas(Id_Usuario_Cliente));
+    public ResponseEntity<List<Booking>> listarReservasPorServicio(@PathVariable Long IdServicio) {
+        return ResponseEntity.ok(bookingUseCase.listarReservas(IdServicio));
     }
 
     @DeleteMapping("/eliminar/{Id_Reserva}")
-    public ResponseEntity<?> eliminarReserva(@PathVariable Long Id_Reserva)
+    public ResponseEntity<?> eliminarReserva(@PathVariable Long IdReserva)
     {
         try{
-            bookingUseCase.eliminarReserva(Id_Reserva);
+            bookingUseCase.eliminarReserva(IdReserva);
             return new ResponseEntity<>("Reserva eliminada", HttpStatus.OK);
 
         } catch (RuntimeException e){

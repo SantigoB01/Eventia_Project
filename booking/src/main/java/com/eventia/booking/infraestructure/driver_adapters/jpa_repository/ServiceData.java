@@ -15,10 +15,10 @@ public class ServiceData {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_servicio")
-    private Long id_Servicio;
+    private Long idServicio;
 
     @Column(name = "id_usuario_of", nullable = false)
-    private Long id_Usuario_Oferente;
+    private Long idUsuarioOferente;
 
     @Column(nullable = false, length = 600)
     private String descripcion;
@@ -27,7 +27,7 @@ public class ServiceData {
     private Double costo;
 
     @Column(name = "tipo_servicio", nullable = false, length = 120)
-    private String tipo_Servicio;
+    private String tipoServicio;
 
     @Column(nullable = false, length = 120)
     private String ciudad;

@@ -14,12 +14,12 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 
 public class Booking {
-    private Long id_Reserva;
-    private Long Id_Servicio;
-    private Long Id_Usuario_Cliente;
-    private LocalDate Fecha_Reserva;
-    private LocalDateTime FechaInicio;
-    private LocalDateTime FechaFin;
-    private String Estado;
-    private Double Total;
+    private Long idReserva;
+    private Long idServicio;
+    private Long idUsuarioCliente;
+    private LocalDate fechaReserva;
+    private LocalDateTime fechaInicio;
+    private LocalDateTime fechaFin;
+    private String estado;
+    private Double total;
 }

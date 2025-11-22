@@ -7,7 +7,7 @@ import java.util.List;
 public interface ServicioGateway {
     Servicio crearServicio(Servicio servicio);
     Servicio actualizarServicio (Servicio servicio);
-    void eliminarServicio (Long Id_Servicio);
+    void eliminarServicio (Long IdServicio);
     List<Servicio> listarServicios();
-    Servicio obtenerServicioPorId(Long Id_Servicio);
+    Servicio obtenerServicioPorId(Long IdServicio);
 }

@@ -26,22 +26,20 @@ public class ServiceController {
 
     @GetMapping("/view")
     public ResponseEntity<List<Servicio>> listarServicios(@PathVariable ServiceData serviceData){
-        return ResponseEntity.ok(servicioUseCase.listarServicios());
+        return ResponseEntity.ok(servicioUseCase.listarServicios(serviceData));
     }
-/// *
+
     @GetMapping("/{Id_Servicio}")
-    public ResponseEntity<Servicio> obtenerServicio(@PathVariable Long Id_Servicio) {
-        return servicioUseCase.obtenerServicioPorId(Id_Servicio)
-                .map(mapper::)
-                .orElse(ResponseEntity.notFound().build());
+    public Servicio obtenerServicio(@PathVariable Long Id_Servicio) {
+        return servicioUseCase.obtenerServicioPorId(Id_Servicio);
     }
-    *///
+
 
     @DeleteMapping("/delete/{Id_Servicio}")
     public ResponseEntity<String> eliminarServicio(@PathVariable Long Id_Servicio){
         try {
             servicioUseCase.eliminarServicio(Id_Servicio);
-            return new ResponseEntity<>("Reserva eliminada correcto",HttpStatus.OK)
+            return new ResponseEntity<>("Reserva eliminada correcto",HttpStatus.OK);
         } catch (RuntimeException e) {
             return new ResponseEntity<>("ERROR.", HttpStatus.NOT_FOUND);
         }

@@ -15,28 +15,28 @@ import java.time.LocalDateTime;
 public class BookingData {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_reserva")
-    private Long Id_Reserva;
+    @Column(name = "idreserva")
+    private Long idReserva;
 
-    @Column(name = "id_servicio", nullable = false)
-    private Long Id_Servicio;
+    @Column(name = "idservicio", nullable = false)
+    private Long idServicio;
 
-    @Column(name = "id_usuario_cliente", nullable = false)
-    private Long Id_Usuario_Cliente;
+    @Column(name = "idusuariocliente", nullable = false)
+    private Long idUsuarioCliente;
 
-    @Column(name = "fecha_reserva", nullable = false)
-    private LocalDate Fecha_Reserva;
+    @Column(name = "fechAreserva", nullable = false)
+    private LocalDate fechaReserva;
 
-    @Column(name="fecha_inicio", nullable = false)
-    private LocalDateTime FechaInicio;
+    @Column(name="fechainicio", nullable = false)
+    private LocalDateTime fechaInicio;
 
     @Column(name="fecha_fin", nullable = false)
-    private LocalDateTime FechaFin;
+    private LocalDateTime fechaFin;
 
     @Column(nullable = false, length = 120)
-    private String Estado;
+    private String estado;
 
     @Column(nullable = false)
-    private Integer Total;
+    private Double total;
 
 }

@@ -5,10 +5,12 @@ import com.eventia.booking.domain.model.Servicio;
 import com.eventia.booking.domain.model.gateway.BookingGateway;
 import com.eventia.booking.domain.model.gateway.ServicioGateway;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
+@Service
 @RequiredArgsConstructor
 
 public class BookingUseCase {
@@ -17,10 +19,10 @@ public class BookingUseCase {
 
         public Booking crearReserva(Booking reserva) {
 
-            validarFechas(reserva);
-            validarExistenciaServicio(reserva.getId_Servicio());
+            validarFechass(reserva);
+            validarExistenciaServicio(reserva.getIdServicio());
 
-            if (!estaDisponible(reserva.getId_Servicio(), reserva.getFechaInicio(), reserva.getFechaFin())) {
+            if (!estaDisponible(reserva.getIdServicio(), reserva.getFechaInicio(), reserva.getFechaFin())) {
                 throw new IllegalArgumentException("El servicio NO está disponible en este horario.");
             }
 
@@ -30,7 +32,7 @@ public class BookingUseCase {
         public Booking actualizarReserva(Booking reserva) {
 
             validarFechas(reserva);
-            validarExistenciaServicio(reserva.getId_Servicio());
+            validarExistenciaServicio(reserva.getIdServicio());
 
             if (!estaDisponibleParaActualizacion(reserva)) {
                 throw new IllegalArgumentException("La reserva se cruza con otra existente.");
@@ -39,21 +41,31 @@ public class BookingUseCase {
             return BookingGateway.actualizarReserva(reserva);
         }
 
-        public void eliminarReserva(Long id_reserva) {
-            BookingGateway.eliminarReserva(id_reserva);
+        public void eliminarReserva(Long IdReserva) {
+            BookingGateway.eliminarReserva(IdReserva);
         }
 
-        public Booking obtenerReservaPorId(Long Id_Reserva) {
-            return BookingGateway.obtenerReservaPorId(Id_Reserva);
+        public Booking obtenerReservaPorId(Long IdReserva) {
+            return BookingGateway.obtenerReservaPorId(IdReserva);
         }
 
-        public List<Booking> listarReservas(Long Id_Usuario_Cliente) {
-            return BookingGateway.listarReservasPorCliente(Id_Usuario_Cliente);
+        public List<Booking> listarReservas(Long IdUsuarioCliente) {
+            return BookingGateway.listarReservasPorCliente(IdUsuarioCliente);
         }
 
         // ============================================================
         // VALIDACIONES
         // ============================================================
+        private void validarFechass(Booking booking) {
+
+            if (booking.getFechaInicio() == null || booking.getFechaFin() == null) {
+                throw new IllegalArgumentException("Las fechas inicio y fin son obligatorias");
+            }
+
+            if (booking.getFechaFin().isBefore(booking.getFechaInicio())) {
+                throw new IllegalArgumentException("La fecha de fin no puede ser anterior a la fecha de inicio");
+            }
+        }
 
         private void validarFechas(Booking reserva) {
             if (reserva.getFechaInicio().isAfter(reserva.getFechaFin())) {
@@ -65,8 +77,8 @@ public class BookingUseCase {
             }
         }
 
-        private void validarExistenciaServicio(Long Id_Servicio) {
-            Servicio servicio = servicioGateway.obtenerServicioPorId(Id_Servicio);
+        private void validarExistenciaServicio(Long IdServicio) {
+            Servicio servicio = servicioGateway.obtenerServicioPorId(IdServicio);
             if (servicio==null) {
                 throw new IllegalArgumentException("El servicio solicitado no existe.");
             }
@@ -76,8 +88,8 @@ public class BookingUseCase {
         // DISPONIBILIDAD
         // ============================================================
 
-        public boolean estaDisponible(Long Id_Servicio, LocalDateTime inicio, LocalDateTime fin) {
-            return BookingGateway.obtenerReservasPorServicio(Id_Servicio).stream()
+        public boolean estaDisponible(Long IdServicio, LocalDateTime inicio, LocalDateTime fin) {
+            return BookingGateway.obtenerReservasPorServicio(IdServicio).stream()
                     .noneMatch(r ->
                             inicio.isBefore(r.getFechaFin()) &&
                                     fin.isAfter(r.getFechaInicio())
@@ -85,7 +97,7 @@ public class BookingUseCase {
         }
 
         private boolean estaDisponibleParaActualizacion(Booking reserva) {
-            return BookingGateway.obtenerReservasPorServicio(reserva.getId_Servicio()).stream()
-                    .filter(e -> !e.getId_Reserva().equals(reserva.getId_Reserva())).isParallel();
+            return BookingGateway.obtenerReservasPorServicio(reserva.getIdServicio()).stream()
+                    .filter(e -> !e.getIdReserva().equals(reserva.getIdReserva())).isParallel();
         }
     }

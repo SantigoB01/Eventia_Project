@@ -53,9 +53,6 @@ public class BookingUseCase {
             return BookingGateway.listarReservasPorCliente(IdUsuarioCliente);
         }
 
-        // ============================================================
-        // VALIDACIONES
-        // ============================================================
         private void validarFechass(Booking booking) {
 
             if (booking.getFechaInicio() == null || booking.getFechaFin() == null) {
@@ -84,9 +81,6 @@ public class BookingUseCase {
             }
         }
 
-        // ============================================================
-        // DISPONIBILIDAD
-        // ============================================================
 
         public boolean estaDisponible(Long IdServicio, LocalDateTime inicio, LocalDateTime fin) {
             return BookingGateway.obtenerReservasPorServicio(IdServicio).stream()

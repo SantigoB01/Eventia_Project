@@ -47,7 +47,7 @@ public class ServiceController {
         return ResponseEntity.ok(mapper.toResponse(servicio));
     }
 
-    @DeleteMapping("/{idServicio}")
+    @DeleteMapping("/delete/{idServicio}")
     public ResponseEntity<Void> eliminar(@PathVariable Long idServicio) {
         servicioUseCase.eliminarServicio(idServicio);
         return ResponseEntity.noContent().build();

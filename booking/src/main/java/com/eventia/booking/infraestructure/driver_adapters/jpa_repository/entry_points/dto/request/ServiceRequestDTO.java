@@ -12,6 +12,6 @@ public class ServiceRequestDTO {
     private Long idUsuarioOferente;
     private String descripcion;
     private Double costo;
-    private String tipoServicio;
+    private String tipo;
     private String ciudad;
 }

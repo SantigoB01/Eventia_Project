@@ -33,15 +33,17 @@ public class BookingController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Booking> ObtenerReservaPorId(@PathVariable Long idReserva) {
+    public ResponseEntity<BookingResponseDTO> obtenerReservaPorId(@PathVariable("id") Long id) {
 
-            Booking reserva = bookingUseCase.obtenerReservaPorId(IdReserva);
+        Booking booking = bookingUseCase.obtenerReservaPorId(id);
 
-            if (reserva.getIdReserva() != null) {
-                return new ResponseEntity<>(reserva, HttpStatus.OK);
-            }
-            return new ReservaNoEncontradaException(idReserva);
+        if (booking == null) {
+            throw new ReservaNoEncontradaException(id);
         }
+
+        BookingResponseDTO response = bookingDtoMapper.toResponse(booking);
+        return ResponseEntity.ok(response);
+    }
 
     @GetMapping("/{Id_Servicio}")
     public ResponseEntity<List<Booking>> listarReservasPorServicio(@PathVariable Long IdServicio) {

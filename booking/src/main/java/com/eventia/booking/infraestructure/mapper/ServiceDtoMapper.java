@@ -14,7 +14,7 @@ public class ServiceDtoMapper {
                 dto.getIdUsuarioOferente(),
                 dto.getDescripcion(),
                 dto.getCosto(),
-                dto.getTipoServicio(),
+                dto.getTipo(),
                 dto.getCiudad()
         );
     }
@@ -25,7 +25,7 @@ public class ServiceDtoMapper {
         response.setIdUsuarioOferente(servicio.getIdUsuarioOferente());
         response.setDescripcion(servicio.getDescripcion());
         response.setCosto(servicio.getCosto());
-        response.setTipoServicio(servicio.getTipoServicio());
+        response.setTipo(servicio.getTipo());
         response.setCiudad(servicio.getCiudad());
         return response;
     }

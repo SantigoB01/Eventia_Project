@@ -74,4 +74,14 @@ public class ServiceGatewayImpl implements ServicioGateway {
             throw new ServicioNotFoundException(tipo);
         }
     }
+
+    @Override
+    public List<Servicio> buscarPorOferente(Long idUsuarioOferente){
+        try {
+            return repository.findByIdUsuarioOferente(idUsuarioOferente).stream().toList();
+        } catch (Exception e) {
+            throw new ServicioNotFoundException(idUsuarioOferente.toString());
+        }
+    }
+
  }

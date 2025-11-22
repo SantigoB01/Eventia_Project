@@ -18,7 +18,7 @@ public class Servicio {
     private Long idUsuarioOferente;
     private String descripcion;
     private Double costo;
-    private String tipoServicio;
+    private String tipo;
     private String ciudad;
 
 }

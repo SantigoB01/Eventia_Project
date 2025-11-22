@@ -5,6 +5,7 @@ import com.eventia.booking.infraestructure.driver_adapters.jpa_repository.Servic
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Collection;
 import java.util.List;
 
 @Service
@@ -31,5 +32,16 @@ public class ServicioUseCase {
 
     public List<Servicio> listarServicios(ServiceData serviceData) {
         return servicioGateway.listarServicios();
+    }
+    public List<Servicio> buscarPorCiudad(String ciudad){
+        return servicioGateway.buscarPorCiudad(ciudad);
+    }
+
+    public List<Servicio> buscarPorTipoServicio(String tipo) {
+        return  servicioGateway.buscarPorTipoServicio(tipo);
+    }
+
+    public List<Servicio> buscarPorUsuarioOferente(Long idUsuarioOferente) {
+        return servicioGateway.buscarPorOferente(idUsuarioOferente);
     }
 }

@@ -13,7 +13,7 @@ public class ServiceMapper {
                     ServicioData.getIdUsuarioOferente(),
                     ServicioData.getDescripcion(),
                     ServicioData.getCosto(),
-                    ServicioData.getTipoServicio(),
+                    ServicioData.getTipo(),
                     ServicioData.getCiudad()
             );
         }
@@ -24,7 +24,7 @@ public class ServiceMapper {
                     servicio.getIdUsuarioOferente(),
                     servicio.getDescripcion(),
                     servicio.getCosto(),
-                    servicio.getTipoServicio(),
+                    servicio.getTipo(),
                     servicio.getCiudad());
         }
 }

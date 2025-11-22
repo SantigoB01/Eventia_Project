@@ -1,5 +1,7 @@
 package com.eventia.booking.domain.model.UseCase;
 
+import com.eventia.booking.domain.exception.FechaNoDisponibleException;
+import com.eventia.booking.domain.exception.ServicioNoDisponibleException;
 import com.eventia.booking.domain.model.Booking;
 import com.eventia.booking.domain.model.Servicio;
 import com.eventia.booking.domain.model.gateway.BookingGateway;
@@ -23,7 +25,7 @@ public class BookingUseCase {
             validarExistenciaServicio(reserva.getIdServicio());
 
             if (!estaDisponible(reserva.getIdServicio(), reserva.getFechaInicio(), reserva.getFechaFin())) {
-                throw new IllegalArgumentException("El servicio NO está disponible en este horario.");
+                throw new ServicioNoDisponibleException(reserva.getIdServicio());
             }
 
             return BookingGateway.crearReserva(reserva);
@@ -35,7 +37,7 @@ public class BookingUseCase {
             validarExistenciaServicio(reserva.getIdServicio());
 
             if (!estaDisponibleParaActualizacion(reserva)) {
-                throw new IllegalArgumentException("La reserva se cruza con otra existente.");
+                throw new FechaNoDisponibleException();
             }
 
             return BookingGateway.actualizarReserva(reserva);

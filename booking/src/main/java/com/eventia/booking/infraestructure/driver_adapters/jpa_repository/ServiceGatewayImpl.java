@@ -2,6 +2,8 @@ package com.eventia.booking.infraestructure.driver_adapters.jpa_repository;
 
 
 
+import com.eventia.booking.domain.exception.ServicioNoDisponibleException;
+import com.eventia.booking.domain.exception.ServicioNotFoundException;
 import com.eventia.booking.domain.model.Servicio;
 import com.eventia.booking.domain.model.gateway.ServicioGateway;
 import com.eventia.booking.infraestructure.mapper.ServiceMapper;
@@ -9,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -54,4 +57,31 @@ public class ServiceGatewayImpl implements ServicioGateway {
         return repository.findById(IdServicio).map(mapper::toServicio).orElse(null);
     }
 
-}
+    @Override
+    public List<Servicio> buscarPorCiudad(String ciudad){
+        try {
+            return repository.findByCiudad(ciudad).stream().toList();
+        } catch (Exception e) {
+            throw new ServicioNotFoundException(ciudad);
+        }
+    }
+
+    @Override
+    public List<Servicio> buscarPorTipoServicio(String tipo){
+        try {
+            return repository.findByTipo(tipo).stream().toList();
+        } catch (Exception e) {
+            throw new ServicioNotFoundException(tipo);
+        }
+    }
+
+    @Override
+    public List<Servicio> buscarPorOferente(Long idUsuarioOferente){
+        try {
+            return repository.findByIdUsuarioOferente(idUsuarioOferente).stream().toList();
+        } catch (Exception e) {
+            throw new ServicioNotFoundException(idUsuarioOferente.toString());
+        }
+    }
+
+ }

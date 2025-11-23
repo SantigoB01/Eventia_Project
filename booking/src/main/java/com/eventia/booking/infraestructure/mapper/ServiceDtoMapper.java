@@ -10,7 +10,7 @@ public class ServiceDtoMapper {
 
     public Servicio toDomain(ServiceRequestDTO dto) {
         return new Servicio(
-                null,                       // idServicio se genera en la BD
+                null,
                 dto.getIdUsuarioOferente(),
                 dto.getDescripcion(),
                 dto.getCosto(),

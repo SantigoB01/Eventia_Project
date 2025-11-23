@@ -9,12 +9,12 @@ public class BookingDtoMapper {
 
     public Booking toDomain(BookingRequestDTO dto) {
         return Booking.builder()
-                .idReserva(null)  // se genera en BD
+                .idReserva(null)
                 .idServicio(dto.getIdServicio())
                 .idUsuarioCliente(dto.getIdUsuarioCliente())
-                .fechaReserva(dto.getFechaReserva()) // LocalDate
-                .fechaInicio(dto.getFechaInicio().toLocalDateTime())   // LocalDateTime
-                .fechaFin(dto.getFechaFin().toLocalDateTime())         // LocalDateTime
+                .fechaReserva(dto.getFechaReserva())
+                .fechaInicio(dto.getFechaInicio().toLocalDateTime())
+                .fechaFin(dto.getFechaFin().toLocalDateTime())
                 .estado("ACTIVO")
                 .total(dto.getTotal())
                 .fechaCreacion(dto.getFechaCreacion().toLocalDateTime())

@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/booking")
+@RequestMapping("/api/eventia/booking")
 @RequiredArgsConstructor
 public class BookingController {
     private final BookingMapper mapper;

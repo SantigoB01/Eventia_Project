@@ -6,5 +6,4 @@ public interface UsuarioGateway {
     void eliminarUsuario(Long id_Usuario);
     Usuario buscarPorId(Long id_Usuario);
     Usuario actualizarUsuario(Usuario usuario);
-    String loginConEmail(String email, String password);
 }

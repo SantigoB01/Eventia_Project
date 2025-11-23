@@ -37,9 +37,4 @@ public class UsuarioGatewayImpl implements UsuarioGateway {
         return usuarioMapper.toUsuario(repository.save(usuarioDataActualizar));
 
     }
-    @Override
-    public String loginConEmail(String email, String password) {
-        Usuario usuario = usuarioMapper.toUsuario(repository.findByEmail(email).get());
-        return usuario.getPassword();
-    }
 }

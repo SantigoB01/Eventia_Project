@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/api/servicios")
+@RequestMapping("/api/eventia/servicios")
 @RequiredArgsConstructor
 public class ServiceController {
 

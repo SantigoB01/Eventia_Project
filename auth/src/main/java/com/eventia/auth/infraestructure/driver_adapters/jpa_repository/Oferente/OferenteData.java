@@ -3,6 +3,7 @@ package com.eventia.auth.infraestructure.driver_adapters.jpa_repository.Oferente
 
 import com.eventia.auth.infraestructure.driver_adapters.jpa_repository.UsuarioData;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -17,12 +18,14 @@ import lombok.NoArgsConstructor;
 public class OferenteData extends UsuarioData {
 
         @JsonProperty("nombre_Artistico")
+        @Column(unique = true)
         private String nombreArtistico;
 
         @JsonProperty("especialidad")
         private String especialidad;
 
         @JsonProperty("telefono")
+        @Column(unique = true)
         private String telefono;
 
         @JsonProperty("activo")

@@ -1,6 +1,8 @@
 package com.eventia.notifications.infraestructure.ses;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import software.amazon.awssdk.services.ses.SesClient;
 import software.amazon.awssdk.services.ses.model.*;
@@ -8,10 +10,12 @@ import software.amazon.awssdk.services.ses.model.*;
 @Component
 @RequiredArgsConstructor
 public class SesEmailSender {
+    @Autowired
+    private SesClient sesClient;
 
-    private final SesClient sesClient;
-
+    @Value("${aws.ses.from}")
     private String from;
+
 
     public void enviarEmail(String to, String subject, String mensaje) {
         Destination destination = Destination.builder()
@@ -36,3 +40,5 @@ public class SesEmailSender {
         sesClient.sendEmail(request);
     }
 }
+
+

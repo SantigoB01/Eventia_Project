@@ -1,0 +1,3 @@
+aws:
+  ses:
+    from: "santicharry90@gmail.com"

@@ -49,14 +49,4 @@ public class UsuarioController {
         }
     }
 
-    @PostMapping("/login/{email}/{password}")
-    public ResponseEntity<String> loginConEmail(@PathVariable String email, @PathVariable String password) {
-        try{
-            String validacion = usuarioUseCase.loginConEmail(email, password);
-            return new ResponseEntity<>(validacion, HttpStatus.OK);
-        }catch(Exception error) {
-            //return ResponseEntity.notFound().build();
-            return new ResponseEntity<>("Correo Incorrecto", HttpStatus.NOT_FOUND);
-        }
-    }
 }

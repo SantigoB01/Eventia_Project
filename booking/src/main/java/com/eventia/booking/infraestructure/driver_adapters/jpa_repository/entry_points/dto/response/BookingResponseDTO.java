@@ -1,8 +1,14 @@
 package com.eventia.booking.infraestructure.driver_adapters.jpa_repository.entry_points.dto.response;
 
+import lombok.Builder;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+
 import java.time.LocalDateTime;
 import java.time.LocalDate;
+@Builder
+@Getter@Setter
 
 @Data
 public class BookingResponseDTO {
@@ -17,4 +23,5 @@ public class BookingResponseDTO {
 
     private String estado;
     private Double total;
+    private LocalDateTime fechaCreacion;
 }

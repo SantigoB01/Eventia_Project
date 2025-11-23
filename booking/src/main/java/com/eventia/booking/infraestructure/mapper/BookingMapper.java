@@ -4,6 +4,7 @@ import com.eventia.booking.domain.model.Booking;
 import com.eventia.booking.infraestructure.driver_adapters.jpa_repository.BookingData;
 import org.springframework.stereotype.Component;
 
+
 @Component
 public class BookingMapper {
 
@@ -16,7 +17,8 @@ public class BookingMapper {
                 BookingData.getFechaInicio(),
                 BookingData.getFechaFin(),
                 BookingData.getEstado(),
-                BookingData.getTotal()
+                BookingData.getTotal(),
+                BookingData.getFechaCreacion()
         );
     }
 
@@ -29,7 +31,7 @@ public class BookingMapper {
                 booking.getFechaInicio(),
                 booking.getFechaFin(),
                 booking.getEstado(),
-                booking.getTotal()
-        );
+                booking.getTotal(),
+                booking.getFechaCreacion());
     }
 }

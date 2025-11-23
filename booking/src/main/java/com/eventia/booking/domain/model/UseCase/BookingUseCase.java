@@ -62,8 +62,8 @@ public class BookingUseCase {
         return bookingGateway.listarReservas();
     }
 
-    public List<Booking> listarReservasPorUsuario(Long idUsuario) {
-        return bookingGateway.listarReservasPorUsuario(idUsuario);
+    public List<Booking> listarReservasPorUsuario(Long idUsuarioCliente) {
+        return bookingGateway.listarReservasPorUsuario(idUsuarioCliente);
     }
 
     public List<Booking> listarReservasActivas() {

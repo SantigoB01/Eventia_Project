@@ -13,10 +13,11 @@ public class BookingDtoMapper {
                 .idServicio(dto.getIdServicio())
                 .idUsuarioCliente(dto.getIdUsuarioCliente())
                 .fechaReserva(dto.getFechaReserva()) // LocalDate
-                .fechaInicio(dto.getFechaInicio())   // LocalDateTime
-                .fechaFin(dto.getFechaFin())         // LocalDateTime
+                .fechaInicio(dto.getFechaInicio().toLocalDateTime())   // LocalDateTime
+                .fechaFin(dto.getFechaFin().toLocalDateTime())         // LocalDateTime
                 .estado("ACTIVO")
                 .total(dto.getTotal())
+                .fechaCreacion(dto.getFechaCreacion().toLocalDateTime())
                 .build();
     }
 
@@ -30,6 +31,7 @@ public class BookingDtoMapper {
                 .fechaFin(booking.getFechaFin())
                 .estado(booking.getEstado())
                 .total(booking.getTotal())
+                .fechaCreacion(booking.getFechaCreacion())
                 .build();
     }
 }

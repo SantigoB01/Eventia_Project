@@ -13,7 +13,7 @@ public interface BookingGateway {
 
     List<Booking> listarReservas();
 
-    List<Booking> listarReservasPorUsuario(Long idUsuario);
+    List<Booking> listarReservasPorUsuario(Long idUsuarioCliente);
 
     List<Booking> listarReservasPorServicio(Long idServicio);
 

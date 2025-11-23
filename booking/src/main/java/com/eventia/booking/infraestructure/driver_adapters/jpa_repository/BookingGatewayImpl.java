@@ -55,8 +55,7 @@ public class BookingGatewayImpl implements BookingGateway {
     public List<Booking> listarReservasPorServicio(Long idServicio) {
         return bookingRepository.findByIdServicio(idServicio)
                 .stream()
-                .map(bookingMapper::toBooking)
-                .collect(Collectors.toList());
+                .map(bookingMapper::toBooking).collect(Collectors.toList());
     }
 
     @Override

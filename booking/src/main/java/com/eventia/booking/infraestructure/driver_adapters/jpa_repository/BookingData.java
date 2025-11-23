@@ -25,13 +25,13 @@ public class BookingData {
     @Column(name = "idusuariocliente")
     private Long idUsuarioCliente;
 
-    @Column(name = "fechAreserva")
+    @Column(name = "fechareserva")
     private LocalDate fechaReserva;
 
     @Column(name="fechainicio")
     private LocalDateTime fechaInicio;
 
-    @Column(name="fecha_fin")
+    @Column(name="fechafin")
     private LocalDateTime fechaFin;
 
     @Column( length = 120)
@@ -40,4 +40,6 @@ public class BookingData {
     @Column
     private Double total;
 
+    @Column
+    private LocalDateTime fechaCreacion;
 }

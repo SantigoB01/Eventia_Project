@@ -35,7 +35,7 @@ public class BookingController {
 
     // -----------------------------------------------------------
 
-    @GetMapping("/{id}")
+    @GetMapping("/reserva/{id}")
     public ResponseEntity<BookingResponseDTO> obtenerPorId(@PathVariable Long id) {
 
         Booking booking = bookingUseCase.obtenerReservaPorId(id);
@@ -82,10 +82,10 @@ public class BookingController {
 
     // -----------------------------------------------------------
 
-    @GetMapping("/usuario/{idUsuario}")
-    public ResponseEntity<List<BookingResponseDTO>> obtenerPorUsuario(@PathVariable Long idUsuario) {
+    @GetMapping("/usuario/{idUsuarioCliente}")
+    public ResponseEntity<List<BookingResponseDTO>> obtenerPorUsuario(@PathVariable Long idUsuarioCliente) {
 
-        List<Booking> bookings = bookingUseCase.obtenerReservasPorUsuario(idUsuario);
+        List<Booking> bookings = bookingUseCase.listarReservasPorUsuario(idUsuarioCliente);
 
         List<BookingResponseDTO> response = bookings.stream()
                 .map(bookingMapper::toResponse)
@@ -99,7 +99,7 @@ public class BookingController {
     @GetMapping("/servicio/{idServicio}")
     public ResponseEntity<List<BookingResponseDTO>> obtenerPorServicio(@PathVariable Long idServicio) {
 
-        List<Booking> bookings = bookingUseCase.obtenerReservasPorServicio(idServicio);
+        List<Booking> bookings = bookingUseCase.listarReservasPorServicio(idServicio);
 
         List<BookingResponseDTO> response = bookings.stream()
                 .map(bookingMapper::toResponse)
@@ -113,7 +113,7 @@ public class BookingController {
     @GetMapping("/activas")
     public ResponseEntity<List<BookingResponseDTO>> activas() {
 
-        List<Booking> bookings = bookingUseCase.obtenerReservasActivas();
+        List<Booking> bookings = bookingUseCase.listarReservasActivas();
 
         List<BookingResponseDTO> response = bookings.stream()
                 .map(bookingMapper::toResponse)

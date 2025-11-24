@@ -2,17 +2,22 @@ FROM eclipse-temurin:21-jdk AS build
 
 WORKDIR /app
 
-# Copiar archivos del proyecto
-COPY . .
+# Copiar POM primero para mejor cache de dependencias
+COPY pom.xml .
 
-# Compilar el proyecto usando Maven (NO mvnw)
+# Descargar dependencias
+RUN mvn dependency:go-offline -Dmaven.test.skip=true
+
+# Copiar código fuente
+COPY src ./src
+
+# Compilar
 RUN mvn clean package -Dmaven.test.skip=true
 
 FROM eclipse-temurin:21-jre
 
 WORKDIR /app
 
-# Copiar el JAR desde la etapa de build
 COPY --from=build /app/target/*.jar app.jar
 
 EXPOSE 9094

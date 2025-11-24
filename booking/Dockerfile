@@ -20,6 +20,6 @@ WORKDIR /app
 COPY --from=build /app/target/booking-*.jar app.jar
 
 
-EXPOSE 9090
+EXPOSE 9094
 
 ENTRYPOINT ["java", "-jar", "app.jar"]

@@ -19,6 +19,6 @@ WORKDIR /app
 # Copiar el JAR desde la etapa de build
 COPY --from=build /app/target/auth-*.jar app.jar
 
-EXPOSE 9094
+EXPOSE 9090
 
 ENTRYPOINT ["java", "-jar", "app.jar"]

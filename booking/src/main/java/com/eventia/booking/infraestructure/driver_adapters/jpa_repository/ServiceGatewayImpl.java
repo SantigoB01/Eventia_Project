@@ -2,16 +2,16 @@ package com.eventia.booking.infraestructure.driver_adapters.jpa_repository;
 
 
 
-import com.eventia.booking.domain.exception.ServicioNoDisponibleException;
 import com.eventia.booking.domain.exception.ServicioNotFoundException;
 import com.eventia.booking.domain.model.Servicio;
+import com.eventia.booking.domain.model.enums.CiudadSumapaz;
+import com.eventia.booking.domain.model.enums.TipoServicio;
 import com.eventia.booking.domain.model.gateway.ServicioGateway;
 import com.eventia.booking.infraestructure.mapper.ServiceMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -34,7 +34,7 @@ public class ServiceGatewayImpl implements ServicioGateway {
         ServiceData serviceDataAct = mapper.toData(servicio);
 
         if (!repository.existsById(serviceDataAct.getIdServicio())){
-            throw new RuntimeException("Servicio con id: " + serviceDataAct.getIdServicio() + " no existe");
+            throw new ServicioNotFoundException("Servicio con id: " + serviceDataAct.getIdServicio() + " no existe");
         }
         return mapper.toServicio(repository.save(serviceDataAct));
     }
@@ -44,34 +44,43 @@ public class ServiceGatewayImpl implements ServicioGateway {
         if (repository.existsById(IdServicio)){
             repository.deleteById(IdServicio);
         } else {
-            System.out.println("Servicio no existente. ID SERVICE NOT FOUND");
+            throw new ServicioNotFoundException("SERVICE NOT FOUND. Servicio no encontrado");
         }
     }
 
     @Override
     public List<Servicio> listarServicios() {
-        return repository.findAll().stream().map(mapper::toServicio).collect(Collectors.toList());
+        try{
+            return repository.findAll().stream().map(mapper::toServicio).collect(Collectors.toList());
+        } catch (Exception e){
+           throw new ServicioNotFoundException("No hay ningún servicio registrado pa.");
+        }
     }
 
-    @Override public Servicio obtenerServicioPorId(Long IdServicio){
-        return repository.findById(IdServicio).map(mapper::toServicio).orElse(null);
-    }
-
-    @Override
-    public List<Servicio> buscarPorCiudad(String ciudad){
+    @Override public Servicio obtenerServicioPorId(Long IdServicio) {
         try {
-            return repository.findByCiudad(ciudad).stream().toList();
+            return repository.findById(IdServicio).map(mapper::toServicio).orElse(null);
         } catch (Exception e) {
-            throw new ServicioNotFoundException(ciudad);
+            throw new ServicioNotFoundException("Servicio no encontrado con id: "+IdServicio);
         }
     }
 
     @Override
-    public List<Servicio> buscarPorTipoServicio(String tipo){
+    public List<Servicio> buscarPorCiudad(CiudadSumapaz ciudad){
+        try {
+            return repository.findByCiudad(ciudad).stream().toList();
+        } catch (Exception e) {
+            throw new ServicioNotFoundException("En "+ciudad+" no se han registrado servicios");
+        }
+    }
+
+
+    @Override
+    public List<Servicio> buscarPorTipoServicio(TipoServicio tipo){
         try {
             return repository.findByTipo(tipo).stream().toList();
         } catch (Exception e) {
-            throw new ServicioNotFoundException(tipo);
+            throw new ServicioNotFoundException("Ningún servicio por tipo '"+tipo+"' encontrado");
         }
     }
 
@@ -80,7 +89,7 @@ public class ServiceGatewayImpl implements ServicioGateway {
         try {
             return repository.findByIdUsuarioOferente(idUsuarioOferente).stream().toList();
         } catch (Exception e) {
-            throw new ServicioNotFoundException(idUsuarioOferente.toString());
+            throw new ServicioNotFoundException("Ningún servicio se registra con el usuario: "+idUsuarioOferente.toString());
         }
     }
 

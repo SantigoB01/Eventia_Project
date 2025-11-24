@@ -1,11 +1,10 @@
 package com.eventia.booking.domain.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import com.eventia.booking.domain.model.enums.CiudadSumapaz;
+import com.eventia.booking.domain.model.enums.TipoServicio;
+import lombok.*;
 
-import java.util.Date;
+import java.math.BigDecimal;
 
 
 @AllArgsConstructor
@@ -16,9 +15,9 @@ import java.util.Date;
 public class Servicio {
     private Long idServicio;
     private Long idUsuarioOferente;
+    private String nombre;
     private String descripcion;
-    private Double costo;
-    private String tipo;
-    private String ciudad;
-
+    private BigDecimal tarifaPorHora;
+    private TipoServicio tipo;
+    private CiudadSumapaz ciudad;
 }

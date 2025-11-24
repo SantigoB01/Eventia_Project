@@ -11,8 +11,9 @@ public class ServiceMapper {
             return new Servicio(
                     ServicioData.getIdServicio(),
                     ServicioData.getIdUsuarioOferente(),
+                    ServicioData.getNombre(),
                     ServicioData.getDescripcion(),
-                    ServicioData.getCosto(),
+                    ServicioData.getTarifaPorHora(),
                     ServicioData.getTipo(),
                     ServicioData.getCiudad()
             );
@@ -22,8 +23,9 @@ public class ServiceMapper {
             return new ServiceData(
                     servicio.getIdServicio(),
                     servicio.getIdUsuarioOferente(),
+                    servicio.getNombre(),
                     servicio.getDescripcion(),
-                    servicio.getCosto(),
+                    servicio.getTarifaPorHora(),
                     servicio.getTipo(),
                     servicio.getCiudad());
         }

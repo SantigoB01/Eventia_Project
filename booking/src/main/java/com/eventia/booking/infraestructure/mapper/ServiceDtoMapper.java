@@ -12,8 +12,9 @@ public class ServiceDtoMapper {
         return new Servicio(
                 null,
                 dto.getIdUsuarioOferente(),
+                dto.getNombre(),
                 dto.getDescripcion(),
-                dto.getCosto(),
+                dto.getTarifaPorHora(),
                 dto.getTipo(),
                 dto.getCiudad()
         );
@@ -24,9 +25,10 @@ public class ServiceDtoMapper {
         response.setIdServicio(servicio.getIdServicio());
         response.setIdUsuarioOferente(servicio.getIdUsuarioOferente());
         response.setDescripcion(servicio.getDescripcion());
-        response.setCosto(servicio.getCosto());
+        response.setTarifaPorHora(servicio.getTarifaPorHora());
         response.setTipo(servicio.getTipo());
         response.setCiudad(servicio.getCiudad());
+        response.setNombre(servicio.getNombre());
         return response;
     }
 }

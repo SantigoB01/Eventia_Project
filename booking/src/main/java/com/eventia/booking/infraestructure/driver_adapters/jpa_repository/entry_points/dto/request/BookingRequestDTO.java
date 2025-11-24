@@ -5,6 +5,8 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.math.BigDecimal;
+import java.time.LocalTime;
 import java.time.OffsetDateTime;
 import java.time.LocalDate;
 
@@ -15,15 +17,9 @@ public class BookingRequestDTO {
         private Long idServicio;
         private Long idUsuarioCliente;
         private LocalDate fechaReserva;
-
-        @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX")
-        private OffsetDateTime fechaInicio;
-
-        @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX")
-        private OffsetDateTime fechaFin;
-
-        private Double total;
-
+        private LocalTime fechaInicio;
+        private LocalTime fechaFin;
+        private BigDecimal costoCalculado;
         @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX")
         private OffsetDateTime fechaCreacion;
 }

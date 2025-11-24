@@ -1,5 +1,7 @@
 package com.eventia.booking.domain.model.UseCase;
 import com.eventia.booking.domain.model.Servicio;
+import com.eventia.booking.domain.model.enums.CiudadSumapaz;
+import com.eventia.booking.domain.model.enums.TipoServicio;
 import com.eventia.booking.domain.model.gateway.ServicioGateway;
 import com.eventia.booking.infraestructure.driver_adapters.jpa_repository.ServiceData;
 import lombok.RequiredArgsConstructor;
@@ -33,11 +35,11 @@ public class ServicioUseCase {
     public List<Servicio> listarServicios(ServiceData serviceData) {
         return servicioGateway.listarServicios();
     }
-    public List<Servicio> buscarPorCiudad(String ciudad){
+    public List<Servicio> buscarPorCiudad(CiudadSumapaz ciudad){
         return servicioGateway.buscarPorCiudad(ciudad);
     }
 
-    public List<Servicio> buscarPorTipoServicio(String tipo) {
+    public List<Servicio> buscarPorTipoServicio(TipoServicio tipo) {
         return  servicioGateway.buscarPorTipoServicio(tipo);
     }
 

@@ -7,6 +7,7 @@ import com.eventia.booking.domain.model.Booking;
 import com.eventia.booking.domain.model.UseCase.BookingUseCase;
 import com.eventia.booking.domain.exception.ReservaNoEncontradaException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,6 +21,7 @@ public class BookingController {
 
     private final BookingUseCase bookingUseCase;
     private final BookingDtoMapper bookingMapper;
+    private final BookingDtoMapper bookingDtoMapper;
 
     // -----------------------------------------------------------
 
@@ -41,27 +43,29 @@ public class BookingController {
         Booking booking = bookingUseCase.obtenerReservaPorId(id);
 
         if (booking == null) {
-            throw new ReservaNoEncontradaException(id);
+            throw new ReservaNoEncontradaException("Reserva Inexistente");
         }
 
         return ResponseEntity.ok(bookingMapper.toResponse(booking));
     }
 
-    // -----------------------------------------------------------
+
 
     @GetMapping("/verTodasReservas/{idUsuarioCliente}")
     public ResponseEntity<List<BookingResponseDTO>> listarReservas(@PathVariable Long idUsuarioCliente) {
 
         List<Booking> bookings = bookingUseCase.listarReservas(idUsuarioCliente);
 
+        if (bookings == null || bookings.isEmpty()) {
+            throw new ReservaNoEncontradaException("Reservas inexistentes");
+        }
+
         List<BookingResponseDTO> response = bookings.stream()
-                .map(bookingMapper::toResponse)
-                .collect(Collectors.toList());
+                .map(bookingDtoMapper::toResponse)
+                .toList();
 
         return ResponseEntity.ok(response);
     }
-
-    // -----------------------------------------------------------
 
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<Void> eliminarReserva(@PathVariable Long id) {

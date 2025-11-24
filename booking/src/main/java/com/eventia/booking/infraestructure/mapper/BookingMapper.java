@@ -17,7 +17,7 @@ public class BookingMapper {
                 BookingData.getFechaInicio(),
                 BookingData.getFechaFin(),
                 BookingData.getEstado(),
-                BookingData.getTotal(),
+                BookingData.getCostoCalculado(),
                 BookingData.getFechaCreacion()
         );
     }
@@ -28,10 +28,10 @@ public class BookingMapper {
                 booking.getIdServicio(),
                 booking.getIdUsuarioCliente(),
                 booking.getFechaReserva(),
-                booking.getFechaInicio(),
-                booking.getFechaFin(),
+                booking.getHoraInicio(),
+                booking.getHoraFin(),
                 booking.getEstado(),
-                booking.getTotal(),
+                booking.getCostoCalculado(),
                 booking.getFechaCreacion());
     }
 }

@@ -27,34 +27,36 @@ public class BookingUseCase {
 
         var servicio = servicioGateway.obtenerServicioPorId(booking.getIdServicio());
         if (servicio == null) {
-            throw new RuntimeException("El servicio asociado no existe.");
+            throw new RuntimeException("El servicio con id "+booking.getIdServicio()+" no existe.");
         }
 
-        // Validar solapamiento de fechas (conflicto de horario)
         boolean conflicto = bookingGateway.listarReservasPorServicio(booking.getIdServicio())
                 .stream()
                 .anyMatch(b ->
-                        !(booking.getFechaFin().isBefore(b.getFechaInicio())
-                                || booking.getFechaInicio().isAfter(b.getFechaFin()))
+                        !(booking.getHoraFin().isBefore(b.getHoraInicio())
+                                || booking.getHoraInicio().isAfter(b.getHoraFin()))
                 );
 
         if (conflicto) {
             throw new FechaNoDisponibleException("El servicio ya está reservado en ese horario.");
         }
 
+
         booking.setEstado("ACTIVO");
         booking.setFechaCreacion(java.time.LocalDateTime.now());
 
-        if (booking.getTotal() == null) {
-            booking.setTotal(servicio.getCosto());
+        if (booking.getCostoCalculado() == null) {
+            booking.setCostoCalculado(servicio.getTarifaPorHora());
         }
+
+
 
         return bookingGateway.crearReserva(booking);
     }
 
     public Booking obtenerReservaPorId(Long id) {
         var reserva = bookingGateway.obtenerReservaPorId(id);
-        if (reserva == null) throw new ReservaNoEncontradaException(id);
+        if (reserva == null) throw new ReservaNoEncontradaException("Reserva no encontrada");
         return reserva;
     }
 

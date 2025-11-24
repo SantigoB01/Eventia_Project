@@ -37,6 +37,11 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(buildBody(ex.getMessage(), HttpStatus.CONFLICT), HttpStatus.CONFLICT);
     }
 
+    @ExceptionHandler
+    public ResponseEntity<?> handleCamposObligatorios(CamposObligatoriosException ex) {
+        return new ResponseEntity<>(buildBody(ex.getMessage(), HttpStatus.CONFLICT), HttpStatus.CONFLICT);
+    }
+
     @ExceptionHandler(Exception.class)
     public ResponseEntity<?> handleGeneral(Exception ex) {
         return new ResponseEntity<>(buildBody(ex.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR),

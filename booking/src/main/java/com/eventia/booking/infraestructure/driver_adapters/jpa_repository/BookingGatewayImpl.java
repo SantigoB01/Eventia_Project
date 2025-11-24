@@ -8,7 +8,10 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -19,11 +22,34 @@ public class BookingGatewayImpl implements BookingGateway {
 
     private final BookingDataJpaRepository bookingRepository;
     private final BookingMapper bookingMapper;
+    private final ServiceDataJpaRepository serviceRepository;
 
     @Override
     public Booking crearReserva(Booking booking) {
+
+        ServiceData servicio = serviceRepository.findById(booking.getIdServicio())
+                .orElseThrow(() -> new RuntimeException("Servicio no encontrado"));
+
+        BigDecimal tarifaHora = servicio.getTarifaPorHora();
+
+        long horas = ChronoUnit.HOURS.between(
+                booking.getHoraInicio(),
+                booking.getHoraFin()
+        );
+
+        if (horas <= 0) {
+            throw new RuntimeException("La hora fin debe ser mayor que la hora inicio");
+        }
+
+        BigDecimal total = tarifaHora.multiply(BigDecimal.valueOf(horas));
+
+        booking.setCostoCalculado(total);
+        booking.setEstado("PENDIENTE");
+        booking.setFechaCreacion(LocalDateTime.now());
+
         BookingData entity = bookingMapper.toData(booking);
         BookingData saved = bookingRepository.save(entity);
+
         return bookingMapper.toBooking(saved);
     }
 

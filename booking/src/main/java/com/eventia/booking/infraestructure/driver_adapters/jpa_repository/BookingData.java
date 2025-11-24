@@ -3,10 +3,11 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.cglib.core.Local;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -29,16 +30,16 @@ public class BookingData {
     private LocalDate fechaReserva;
 
     @Column(name="fechainicio")
-    private LocalDateTime fechaInicio;
+    private LocalTime fechaInicio;
 
     @Column(name="fechafin")
-    private LocalDateTime fechaFin;
+    private LocalTime fechaFin;
 
     @Column( length = 120)
     private String estado;
 
     @Column
-    private Double total;
+    private BigDecimal costoCalculado;
 
     @Column
     private LocalDateTime fechaCreacion;

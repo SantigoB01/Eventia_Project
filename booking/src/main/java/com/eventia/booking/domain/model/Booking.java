@@ -1,10 +1,17 @@
 package com.eventia.booking.domain.model;
 
 
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 import lombok.*;
+import org.hibernate.annotations.ManyToAny;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 
 @Builder
@@ -15,13 +22,16 @@ import java.time.LocalDateTime;
 
 public class Booking {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idReserva;
-    private Long idServicio;
+
+    private long idServicio;
     private Long idUsuarioCliente;
     private LocalDate fechaReserva;
-    private LocalDateTime fechaInicio;
-    private LocalDateTime fechaFin;
-    private String estado; // ACTIVO, CANCELADA, COMPLETADA
-    private Double total;
+    private LocalTime horaInicio;
+    private LocalTime horaFin;
+    private String estado;
+    private BigDecimal CostoCalculado;
     private LocalDateTime fechaCreacion;
 }

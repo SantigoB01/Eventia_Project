@@ -16,7 +16,7 @@ public class ClienteGatewayImpl implements ClienteGateway {
     public boolean clienteExiste(Long id_Cliente){
 
         try {
-            restTemplate.getForEntity("http://localhost:9090/api/eventia/cliente/" + id_Cliente, void.class);
+            restTemplate.getForEntity("https://eventia-project.onrender.com/api/eventia/cliente/" + id_Cliente, void.class);
             return true;
         } catch (HttpClientErrorException.NotFound e){
             return false;

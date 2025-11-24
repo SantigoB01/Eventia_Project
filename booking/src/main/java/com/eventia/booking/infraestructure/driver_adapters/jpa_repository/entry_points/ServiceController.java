@@ -26,11 +26,12 @@ public class ServiceController {
     private final ServicioUseCase servicioUseCase;
     private final ServiceDtoMapper mapper;
 
+
     // ---------------------------------------------------------
     // CREAR SERVICIO
     // ---------------------------------------------------------
     @PostMapping("/crearServicio")
-    public ResponseEntity<ServiceResponseDTO> crearServicio(
+    public ResponseEntity<ServiceRequestDTO> crearServicio(
             @RequestBody ServiceRequestDTO requestDTO) {
 
         if (requestDTO == null) {

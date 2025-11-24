@@ -1,16 +1,14 @@
 package com.eventia.booking.domain.model.UseCase;
-import com.eventia.booking.domain.exception.ServicioNotFoundException;
 import com.eventia.booking.domain.model.Servicio;
 import com.eventia.booking.domain.model.enums.CiudadSumapaz;
 import com.eventia.booking.domain.model.enums.TipoServicio;
 import com.eventia.booking.domain.model.gateway.ServicioGateway;
-import com.eventia.booking.infraestructure.driver_adapters.jpa_repository.ServiceData;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-
+import javax.management.ServiceNotFoundException;
 import java.math.BigDecimal;
-import java.util.Collection;
 import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class ServicioUseCase {
@@ -30,7 +28,7 @@ public class ServicioUseCase {
 
         Servicio actual = servicioGateway.obtenerServicioPorId(servicio.getIdServicio());
         if (actual == null) {
-            throw new ServicioNotFoundException("No existe el servicio con id " + servicio.getIdServicio());
+            throw new ServiceNotFoundException("No existe el servicio con id " + servicio.getIdServicio());
         }
 
         return servicioGateway.actualizarServicio(servicio);
@@ -40,7 +38,7 @@ public class ServicioUseCase {
         Servicio existente = servicioGateway.obtenerServicioPorId(idServicio);
 
         if (existente == null) {
-            throw new ServicioNotFoundException("No existe el servicio con id " + idServicio);
+            throw new ServiceNotFoundException("No existe el servicio con id " + idServicio);
         }
 
         servicioGateway.eliminarServicio(idServicio);
@@ -50,7 +48,7 @@ public class ServicioUseCase {
         Servicio servicio = servicioGateway.obtenerServicioPorId(idServicio);
 
         if (servicio == null) {
-            throw new ServicioNotFoundException("Servicio no encontrado");
+            throw new ServiceNotFoundException("Servicio no encontrado");
         }
 
         return servicio;

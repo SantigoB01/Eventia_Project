@@ -27,6 +27,5 @@ public class OferenteData extends UsuarioData {
         private String telefono;
 
         @JsonProperty("activo")
-        @OneToOne(cascade = CascadeType.ALL)
         private Boolean activo;
 }

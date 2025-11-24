@@ -22,6 +22,5 @@ public class ClienteData extends UsuarioData {
     private Boolean activo;
 
     @JsonProperty("reseñaH")
-    @OneToOne(cascade = CascadeType.ALL)
     private String resenaH;
 }

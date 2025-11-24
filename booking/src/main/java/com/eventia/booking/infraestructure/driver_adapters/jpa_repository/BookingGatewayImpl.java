@@ -45,7 +45,6 @@ public class BookingGatewayImpl implements BookingGateway {
 
         booking.setCostoCalculado(total);
         booking.setEstado("PENDIENTE");
-        booking.setFechaCreacion(LocalDateTime.now());
 
         BookingData entity = bookingMapper.toData(booking);
         BookingData saved = bookingRepository.save(entity);
@@ -70,8 +69,8 @@ public class BookingGatewayImpl implements BookingGateway {
 
 
     @Override
-    public List<Booking> listarReservasPorUsuario(Long idUsuario) {
-        return bookingRepository.findByIdUsuarioCliente(idUsuario)
+    public List<Booking> listarReservasPorUsuario(Long idUsuarioCliente) {
+        return bookingRepository.findByIdUsuarioCliente(idUsuarioCliente)
                 .stream()
                 .map(bookingMapper::toBooking)
                 .collect(Collectors.toList());

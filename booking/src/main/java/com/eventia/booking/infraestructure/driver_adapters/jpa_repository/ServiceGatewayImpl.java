@@ -24,73 +24,56 @@ public class ServiceGatewayImpl implements ServicioGateway {
     private final ServiceMapper mapper;
 
     @Override
-    public Servicio crearServicio(Servicio servicio){
-       ServiceData serviceData = mapper.toData(servicio);
-        return mapper.toServicio(repository.save(serviceData));
+    public Servicio crearServicio(Servicio servicio) {
+        return mapper.toServicio(repository.save(mapper.toData(servicio)));
     }
 
     @Override
-    public Servicio actualizarServicio(Servicio servicio){
-        ServiceData serviceDataAct = mapper.toData(servicio);
-
-        if (!repository.existsById(serviceDataAct.getIdServicio())){
-            throw new ServicioNotFoundException("Servicio con id: " + serviceDataAct.getIdServicio() + " no existe");
-        }
-        return mapper.toServicio(repository.save(serviceDataAct));
+    public Servicio actualizarServicio(Servicio servicio) {
+        return mapper.toServicio(repository.save(mapper.toData(servicio)));
     }
 
     @Override
-    public void eliminarServicio(Long IdServicio){
-        if (repository.existsById(IdServicio)){
-            repository.deleteById(IdServicio);
-        } else {
-            throw new ServicioNotFoundException("SERVICE NOT FOUND. Servicio no encontrado");
-        }
+    public void eliminarServicio(Long idServicio) {
+        repository.deleteById(idServicio);
     }
 
     @Override
     public List<Servicio> listarServicios() {
-        try{
-            return repository.findAll().stream().map(mapper::toServicio).collect(Collectors.toList());
-        } catch (Exception e){
-           throw new ServicioNotFoundException("No hay ningún servicio registrado pa.");
-        }
-    }
-
-    @Override public Servicio obtenerServicioPorId(Long IdServicio) {
-        try {
-            return repository.findById(IdServicio).map(mapper::toServicio).orElse(null);
-        } catch (Exception e) {
-            throw new ServicioNotFoundException("Servicio no encontrado con id: "+IdServicio);
-        }
+        return repository.findAll()
+                .stream()
+                .map(mapper::toServicio)
+                .toList();
     }
 
     @Override
-    public List<Servicio> buscarPorCiudad(CiudadSumapaz ciudad){
-        try {
-            return repository.findByCiudad(ciudad).stream().toList();
-        } catch (Exception e) {
-            throw new ServicioNotFoundException("En "+ciudad+" no se han registrado servicios");
-        }
-    }
-
-
-    @Override
-    public List<Servicio> buscarPorTipoServicio(TipoServicio tipo){
-        try {
-            return repository.findByTipo(tipo).stream().toList();
-        } catch (Exception e) {
-            throw new ServicioNotFoundException("Ningún servicio por tipo '"+tipo+"' encontrado");
-        }
+    public Servicio obtenerServicioPorId(Long idServicio) {
+        return repository.findById(idServicio)
+                .map(mapper::toServicio)
+                .orElse(null);
     }
 
     @Override
-    public List<Servicio> buscarPorOferente(Long idUsuarioOferente){
-        try {
-            return repository.findByIdUsuarioOferente(idUsuarioOferente).stream().toList();
-        } catch (Exception e) {
-            throw new ServicioNotFoundException("Ningún servicio se registra con el usuario: "+idUsuarioOferente.toString());
-        }
+    public List<Servicio> buscarPorCiudad(CiudadSumapaz ciudad) {
+        return repository.findByCiudad(ciudad)
+                .stream()
+                .map(mapper::toServicio)
+                .toList();
     }
 
- }
+    @Override
+    public List<Servicio> buscarPorTipoServicio(TipoServicio tipo) {
+        return repository.findByTipo(tipo)
+                .stream()
+                .map(mapper::toServicio)
+                .toList();
+    }
+
+    @Override
+    public List<Servicio> buscarPorOferente(Long idUsuarioOferente) {
+        return repository.findByIdUsuarioOferente(idUsuarioOferente)
+                .stream()
+                .map(mapper::toServicio)
+                .toList();
+    }
+}

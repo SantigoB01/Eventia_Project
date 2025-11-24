@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.math.BigDecimal;
+import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -24,5 +25,5 @@ public class BookingResponseDTO {
     private LocalTime fechaFin;
     private String estado;
     private BigDecimal costoCalculado;
-    private LocalDateTime fechaCreacion;
+    private Instant fechaCreacion;
 }

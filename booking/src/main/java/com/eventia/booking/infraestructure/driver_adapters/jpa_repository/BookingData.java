@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
+import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -42,5 +43,5 @@ public class BookingData {
     private BigDecimal costoCalculado;
 
     @Column
-    private LocalDateTime fechaCreacion;
+    private Instant fechaCreacion;
 }

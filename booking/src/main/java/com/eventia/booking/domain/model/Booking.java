@@ -9,6 +9,7 @@ import lombok.*;
 import org.hibernate.annotations.ManyToAny;
 
 import java.math.BigDecimal;
+import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -33,5 +34,5 @@ public class Booking {
     private LocalTime horaFin;
     private String estado;
     private BigDecimal CostoCalculado;
-    private LocalDateTime fechaCreacion;
+    private Instant fechaCreacion;
 }

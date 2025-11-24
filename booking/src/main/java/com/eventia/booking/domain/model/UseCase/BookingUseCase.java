@@ -9,6 +9,8 @@ import com.eventia.booking.domain.exception.ReservaNoEncontradaException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.sql.Time;
+import java.time.Instant;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -41,9 +43,7 @@ public class BookingUseCase {
             throw new FechaNoDisponibleException("El servicio ya está reservado en ese horario.");
         }
 
-
-        booking.setEstado("ACTIVO");
-        booking.setFechaCreacion(java.time.LocalDateTime.now());
+        booking.setFechaCreacion(Instant.now());
 
         if (booking.getCostoCalculado() == null) {
             booking.setCostoCalculado(servicio.getTarifaPorHora());
@@ -60,7 +60,7 @@ public class BookingUseCase {
         return reserva;
     }
 
-    public List<Booking> listarReservas(Long idUsuarioCliente) {
+    public List<Booking> listarReservas( ) {
         return bookingGateway.listarReservas();
     }
 
@@ -83,6 +83,12 @@ public class BookingUseCase {
     public Booking cancelarReserva(Long idReserva) {
         var reserva = obtenerReservaPorId(idReserva);
         reserva.setEstado("CANCELADA");
+        return bookingGateway.actualizarReserva(reserva);
+    }
+
+    public Booking activarReserva(Long idReserva) {
+        var reserva = obtenerReservaPorId(idReserva);
+        reserva.setEstado("ACTIVA");
         return bookingGateway.actualizarReserva(reserva);
     }
 

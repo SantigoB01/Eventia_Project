@@ -17,7 +17,7 @@ public class BookingDtoMapper {
                 .horaFin(dto.getFechaFin())
                 .estado("ACTIVO")
                 .CostoCalculado(dto.getCostoCalculado())
-                .fechaCreacion(dto.getFechaCreacion().toLocalDateTime())
+                .fechaCreacion(dto.getFechaCreacion())
                 .build();
     }
 

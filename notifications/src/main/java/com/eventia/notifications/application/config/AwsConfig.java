@@ -19,8 +19,6 @@ public class AwsConfig {
     @Value("${cloud.aws.credentials.secret-key}")
     private String secretKey;
 
-    @Value("${cloud.aws.region.static}")
-    private String region;
 
     private StaticCredentialsProvider credentials() {
         return StaticCredentialsProvider.create(

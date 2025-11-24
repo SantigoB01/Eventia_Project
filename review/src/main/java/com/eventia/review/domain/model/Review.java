@@ -9,10 +9,10 @@ import java.time.LocalDateTime;
 @AllArgsConstructor @NoArgsConstructor
 @Builder
 public class Review {
-    private Long id_reseña;
-    private Long id_Reserva;
-    private Long id_Cliente;
-    private Long id_Servicio;
+    private Long idresena;
+    private Long idReserva;
+    private Long idCliente;
+    private Long idServicio;
     private int rating;
     private String comment;
     private LocalDateTime createdAt;

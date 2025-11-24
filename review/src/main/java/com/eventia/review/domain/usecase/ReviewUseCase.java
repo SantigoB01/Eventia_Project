@@ -24,19 +24,19 @@ public class ReviewUseCase {
 
     public Review create(Review review) {
 
-        if(!clienteGateway.clienteExiste(review.getId_Cliente())){
+        if(!clienteGateway.clienteExiste(review.getIdCliente())){
             throw new ClienteNoEncontradoException("Cliente no existente.");
         }
 
-        if (!reservaGateway.reservaExiste(review.getId_Reserva())){
+        if (!reservaGateway.reservaExiste(review.getIdReserva())){
             throw new ReservaNoexisteException("Reserva no hecha y/o inexitente.");
         }
 
-        if (!servicioGateway.servicioExiste(review.getId_Servicio())){
+        if (!servicioGateway.servicioExiste(review.getIdServicio())){
             throw new ServcioNoExiste("Servicio no encontrado");
         }
 
-        if (!gateway.tienePermitido(review.getId_Reserva(), review.getId_Cliente())) {
+        if (!gateway.tienePermitido(review.getIdReserva(), review.getIdCliente())) {
             throw new ReviewNotAllowedException("El cliente no puede reseñar esta reserva.");
         }
 
@@ -46,7 +46,7 @@ public class ReviewUseCase {
     }
 
     public List<Review> listByArtist(Long artistId) {
-        return gateway.findByArtistId(artistId);
+        return gateway.findById_Servicio(artistId);
     }
 
     // Evento desde Booking para habilitar reseñas:
@@ -72,7 +72,7 @@ public class ReviewUseCase {
     }
 
     public List<Review> listByClient(Long clientId) {
-        return gateway.findByClientId(clientId);
+        return gateway.findById_Cliente(clientId);
     }
 
 }

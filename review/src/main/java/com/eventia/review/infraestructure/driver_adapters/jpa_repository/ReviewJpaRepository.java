@@ -6,12 +6,10 @@ import java.util.List;
 
 public interface ReviewJpaRepository extends JpaRepository<ReviewData, Long> {
 
-    List<ReviewData> findByArtistId(Long id_Servicio);
+    List<ReviewData> findByIdServicio(Long idServicio);
 
-    boolean existsByReservationIdAndClientIdAndAllowedTrue(Long reservationId, Long clientId);
 
-    void allowReview(Long reservationId, Long clientId, Long artistId);
 
-    List<ReviewData> findByClientId(Long clientId);
+    List<ReviewData> findByIdCliente(Long idCliente);
 
 }

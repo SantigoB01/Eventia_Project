@@ -9,12 +9,13 @@ import com.eventia.booking.domain.exception.ReservaNoEncontradaException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.sql.Time;
 import java.time.Instant;
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 
-@Service
 @RequiredArgsConstructor
 public class BookingUseCase {
 
@@ -45,10 +46,16 @@ public class BookingUseCase {
 
         booking.setFechaCreacion(Instant.now());
 
-        if (booking.getCostoCalculado() == null) {
-            booking.setCostoCalculado(servicio.getTarifaPorHora());
+        long horas = ChronoUnit.HOURS.between(booking.getHoraInicio(), booking.getHoraFin());
+        if (horas <= 0) {
+            throw new IllegalArgumentException("La hora fin debe ser mayor que la hora inicio");
         }
 
+        BigDecimal costo = servicio.getTarifaPorHora().multiply(BigDecimal.valueOf(horas));
+        booking.setCostoCalculado(costo);
+
+        booking.setEstado("PENDIENTE");
+        booking.setFechaCreacion(Instant.now());
 
 
         return bookingGateway.crearReserva(booking);

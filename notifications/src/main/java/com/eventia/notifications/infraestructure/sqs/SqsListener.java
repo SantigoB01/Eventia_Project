@@ -24,7 +24,7 @@ public class SqsListener {
     private final SnsSmsSender snsSmsSender;
     private final SesEmailSender sesEmailSender;
 
-    private final String QUEUE_URL = "";
+    private final String QUEUE_URL = "https://sqs.us-east-1.amazonaws.com/540261961779/menssagenotiEventia";
 
     @PostConstruct
     public void escucharMensaje(){
@@ -42,7 +42,7 @@ public class SqsListener {
                     try {
                         EventoNotificacionDTO evento = objectMapper.readValue(message.body(), EventoNotificacionDTO.class);
 
-                        snsSmsSender.enviarSms(evento.getMensaje(), evento.getNumeroTelefono());
+                        //snsSmsSender.enviarSms(evento.getMensaje(), evento.getNumeroTelefono());
                         sesEmailSender.enviarEmail(evento.getEmail(), evento.getTipo(), evento.getMensaje());
 
                         sqsClient.deleteMessage(DeleteMessageRequest.builder()

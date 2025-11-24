@@ -22,5 +22,6 @@ public class UsuarioData {
     private String password;
     private Rol rol;
     private Integer edad;
+    @OneToOne(cascade = CascadeType.ALL)
     private String ciudad;
 }

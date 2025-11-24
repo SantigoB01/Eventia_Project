@@ -23,10 +23,7 @@ import java.time.LocalTime;
 
 public class Booking {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idReserva;
-
     private long idServicio;
     private Long idUsuarioCliente;
     private LocalDate fechaReserva;

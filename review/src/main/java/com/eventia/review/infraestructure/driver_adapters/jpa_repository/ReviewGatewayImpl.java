@@ -58,16 +58,16 @@ public class ReviewGatewayImpl implements ReviewGateway {
     }
 
     @Override
-    public List<Review> findByArtistId(Long artistId) {
-        return reviewRepository.findByArtistId(artistId)
+    public List<Review> findById_Servicio(Long artistId) {
+        return reviewRepository.findByIdServicio(artistId)
                 .stream()
                 .map(mapper::toModel)
                 .toList();
     }
 
     @Override
-    public List<Review> findByClientId(Long clientId) {
-        return reviewRepository.findByClientId(clientId)
+    public List<Review> findById_Cliente(Long clientId) {
+        return reviewRepository.findByIdCliente(clientId)
                 .stream()
                 .map(mapper::toModel)
                 .toList();

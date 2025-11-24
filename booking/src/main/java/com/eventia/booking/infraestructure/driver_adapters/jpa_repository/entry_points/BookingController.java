@@ -25,8 +25,7 @@ public class BookingController {
     private final BookingDtoMapper bookingDtoMapper;
 
     @PostMapping("/crearReserva")
-    public ResponseEntity<BookingResponseDTO> crearReserva(
-            @RequestBody BookingRequestDTO request) {
+    public ResponseEntity<BookingResponseDTO> crearReserva(@RequestBody BookingRequestDTO request) {
 
         if (request == null) {
             throw new IllegalArgumentException("El cuerpo de la solicitud no puede ser nulo.");

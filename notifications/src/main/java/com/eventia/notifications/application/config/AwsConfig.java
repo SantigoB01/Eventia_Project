@@ -1,5 +1,6 @@
 package com.eventia.notifications.application.config;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import software.amazon.awssdk.auth.credentials.AwsBasicCredentials;
@@ -12,45 +13,42 @@ import software.amazon.awssdk.services.sqs.SqsClient;
 @Configuration
 public class AwsConfig {
 
+    @Value("${cloud.aws.credentials.access-key}")
+    private String accessKey;
+
+    @Value("${cloud.aws.credentials.secret-key}")
+    private String secretKey;
+
+    @Value("${cloud.aws.region.static}")
+    private String region;
+
+    private StaticCredentialsProvider credentials() {
+        return StaticCredentialsProvider.create(
+                AwsBasicCredentials.create(accessKey, secretKey)
+        );
+    }
+
     @Bean
-    public SqsClient sqsClient(){
+    public SqsClient sqsClient() {
         return SqsClient.builder()
                 .region(Region.US_EAST_1)
-                .credentialsProvider(
-                        StaticCredentialsProvider.create(
-                                AwsBasicCredentials.create(
-                                        "accessKeyId",
-                                        "secretAccessKey"
-                                )
-                        )
-                )                .build();
+                .credentialsProvider(credentials())
+                .build();
     }
 
     @Bean
     public SnsClient snsClient() {
         return SnsClient.builder()
                 .region(Region.US_EAST_1)
-                .credentialsProvider(
-                        StaticCredentialsProvider.create(
-                                AwsBasicCredentials.create(
-                                        "accessKeyId",
-                                        "secretAccessKey"
-                                )
-                        )
-                )                .build();
+                .credentialsProvider(credentials())
+                .build();
     }
 
     @Bean
     public SesClient sesClient() {
         return SesClient.builder()
                 .region(Region.US_EAST_1)
-                .credentialsProvider(
-                        StaticCredentialsProvider.create(
-                                AwsBasicCredentials.create(
-                                        "accessKeyId",
-                                        "secretAccessKey"
-                                )
-                        )
-                )                .build();
+                .credentialsProvider(credentials())
+                .build();
     }
 }

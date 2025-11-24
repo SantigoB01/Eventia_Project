@@ -2,7 +2,6 @@ package com.eventia.booking.infraestructure.driver_adapters.jpa_repository.entry
 
 import com.eventia.booking.domain.model.Agenda;
 import com.eventia.booking.domain.model.UseCase.AgendaUseCase;
-import com.eventia.booking.infraestructure.driver_adapters.jpa_repository.entry_points.dto.*;
 import com.eventia.booking.infraestructure.driver_adapters.jpa_repository.entry_points.dto.request.AgendaRequestDTO;
 import com.eventia.booking.infraestructure.driver_adapters.jpa_repository.entry_points.dto.response.AgendaResponseDTO;
 import lombok.RequiredArgsConstructor;

@@ -14,10 +14,10 @@ public class ReviewMapper {
         if (entity == null) return null;
 
         Review model = new Review();
-        model.setId_reseña(entity.getId_reseña());
-        model.setId_Reserva(entity.getId_Reserva());
-        model.setId_Cliente(entity.getId_Cliente());
-        model.setId_Servicio(entity.getId_Servicio());
+        model.setIdresena(entity.getIdresena());
+        model.setIdReserva(entity.getIdReserva());
+        model.setIdCliente(entity.getIdCliente());
+        model.setIdServicio(entity.getIdServicio());
         model.setRating(entity.getRating());
         model.setComment(entity.getComment());
         model.setCreatedAt(entity.getCreatedAt());
@@ -28,10 +28,10 @@ public class ReviewMapper {
         if (model == null) return null;
 
         ReviewData entity = new ReviewData();
-        entity.setId_reseña(model.getId_reseña());
-        entity.setId_Reserva(model.getId_Reserva());
-        entity.setId_Cliente(model.getId_Cliente());
-        entity.setId_Servicio(model.getId_Servicio());
+        entity.setIdresena(model.getIdresena());
+        entity.setIdReserva(model.getIdReserva());
+        entity.setIdCliente(model.getIdCliente());
+        entity.setIdServicio(model.getIdServicio());
         entity.setRating(model.getRating());
         entity.setComment(model.getComment());
         entity.setCreatedAt(model.getCreatedAt());

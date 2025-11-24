@@ -12,9 +12,9 @@ public interface ReviewGateway {
 
     void delete(Long reviewId);
 
-    List<Review> findByArtistId(Long artistId);
+    List<Review> findById_Servicio(Long artistId);
 
-    List<Review> findByClientId(Long clientId);
+    List<Review> findById_Cliente(Long clientId);
 
     boolean tienePermitido(Long reservationId, Long clientId);
 

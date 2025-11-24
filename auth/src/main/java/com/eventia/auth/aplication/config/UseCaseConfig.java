@@ -13,6 +13,7 @@ public class UseCaseConfig {
         @Bean
         public UsuarioUseCase usuarioUseCase(UsuarioGateway usuarioGateway, EncrypterGateway encrypterGatway){
             return new UsuarioUseCase(usuarioGateway, encrypterGatway);
+
         }
         @Bean
         public ClienteUseCase clienteUseCase(ClienteGateway clienteGateway,EncrypterGateway encrypterGateway, NotificationGateway notificationGateway) {

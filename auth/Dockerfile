@@ -8,8 +8,6 @@ COPY . .
 RUN chmod +x mvnw
 
 
-RUN ./mvnw -q -DskipTests package
-
 FROM eclipse-temurin:21-jre
 
 WORKDIR /app

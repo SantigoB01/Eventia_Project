@@ -1,24 +1,24 @@
+
 FROM eclipse-temurin:21-jdk AS build
 
 WORKDIR /app
 
-# Copiar POM primero para mejor cache de dependencias
-COPY pom.xml .
+# Copiar archivos del proyecto
+COPY . .
 
-# Descargar dependencias
-RUN mvn dependency:go-offline -Dmaven.test.skip=true
+# Dar permisos de ejecución al mvnw
+RUN chmod +x mvnw
 
-# Copiar código fuente
-COPY src ./src
-
-# Compilar
-RUN mvn clean package -Dmaven.test.skip=true
+# Compilar el proyecto (SALTANDO los tests)
+RUN ./mvnw clean package -Dmaven.test.skip=true
 
 FROM eclipse-temurin:21-jre
 
 WORKDIR /app
 
-COPY --from=build /app/target/*.jar app.jar
+# Copiar el JAR desde la etapa de build
+COPY --from=build /app/target/booking-*.jar app.jar
+
 
 EXPOSE 9094
 

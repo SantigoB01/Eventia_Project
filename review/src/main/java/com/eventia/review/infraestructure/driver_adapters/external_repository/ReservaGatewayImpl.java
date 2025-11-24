@@ -16,7 +16,7 @@ public class ReservaGatewayImpl implements ReservaGateway {
     public boolean reservaExiste(Long idReserva){
 
         try {
-            restTemplate.getForEntity("" + idReserva, void.class);
+            restTemplate.getForEntity("http://localhost:9090/api/bookings/reserva/" + idReserva, void.class);
             return true;
         } catch (HttpClientErrorException.NotFound e){
             return false;

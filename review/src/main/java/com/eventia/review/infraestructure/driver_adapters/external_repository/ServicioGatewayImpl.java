@@ -16,7 +16,7 @@ public class ServicioGatewayImpl implements ServicioGateway {
     public boolean servicioExiste(Long idServicio){
 
         try {
-            restTemplate.getForEntity("" + idServicio, void.class);
+            restTemplate.getForEntity("http://localhost:9090/api/servicios/verServicio/" + idServicio, void.class);
             return true;
         } catch (HttpClientErrorException.NotFound e){
             return false;

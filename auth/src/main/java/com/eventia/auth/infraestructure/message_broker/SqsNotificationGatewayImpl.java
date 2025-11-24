@@ -16,7 +16,7 @@ public class SqsNotificationGatewayImpl implements NotificationGateway {
     private final SqsClient sqsClient;
     private final ObjectMapper objectMapper;
 
-    private final String queueUrl = "https://sqs.eu-west-2.amazonaws.com/540261961779/notificacion_user"; // actualiza
+    private final String queueUrl = "https://sqs.us-east-1.amazonaws.com/540261961779/menssagenotiEventia";
 
     @Override
     public void enviarMensaje(Notificacion mensajeCola) {

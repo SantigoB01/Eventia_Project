@@ -15,6 +15,20 @@ public class OferenteGatewayImpl implements OferenteGateway {
 
     @Override
     public Oferente guardarOferente(Oferente oferente) {
+
+        if (repository.existsByEmail(oferente.getEmail())) {
+            throw new IllegalArgumentException("Ya existe un oferente registrado con este correo.");
+        }
+
+        if (repository.existsByNombreArtistico(oferente.getNombre_Artistico())) {
+            throw new IllegalArgumentException("El nombre artístico ya está en uso.");
+        }
+        if (oferente.getId_Usuario() != null) {
+            throw new IllegalArgumentException("No está permitido sobrescribir un oferente existente.");
+        }
+        if (repository.existsByTelefono(oferente.getTelefono())) {
+            throw new IllegalArgumentException("Ya existe un cliente registrado con este teléfono.");
+        }
         OferenteData oferenteData = oferenteMapper.toData(oferente);
         return oferenteMapper.toOferente(repository.save(oferenteData));
     }

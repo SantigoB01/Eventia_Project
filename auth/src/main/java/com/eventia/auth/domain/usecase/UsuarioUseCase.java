@@ -11,24 +11,6 @@ public class UsuarioUseCase {
     private final UsuarioGateway usuarioGateway;
     private final EncrypterGateway encrypterGateway;
 
-  /* public Usuario guardarUsuario (Usuario usuario) {
-        if (usuario.getEmail() == null || usuario.getPassword() == null || usuario.getNombre() == null || usuario.getEdad() == null) {
-            throw new NullPointerException("Ojo con eso, campos vacios");
-
-        }
-        if(usuario.getNombre() == null && usuario.getPassword() == null){
-            throw new IllegalArgumentException("El nombre y la contraseña son obligatorios");
-        }
-        if (usuario.getEdad()<18) {
-            System.out.println("Necesitas ser mayor de 18");
-        }
-        String passwordEncrypt = encrypterGateway.encrypt(usuario.getPassword());
-        usuario.setPassword(passwordEncrypt);
-        Usuario usuarioGuardado = usuarioGateway.guardarUsuario(usuario);
-
-
-        return usuarioGuardado;
-    }*/
 
     public void eliminarUsuarioPorId(Long id_Usuario) {
         try{
@@ -58,16 +40,7 @@ public class UsuarioUseCase {
         return usuarioGateway.actualizarUsuario(usuario);
     }
 
-    public String loginConEmail(String email, String password) {
-        String PassBD = usuarioGateway.loginConEmail(email, password);
-        Boolean validacion = encrypterGateway.checkPass(password, PassBD);
-        if(validacion) {
-            return "Ha iniciado sesión con exito";
-        }else{
-            return "Contraseña o Correo incorrecto";
-        }
 
-    }
 
 
 }

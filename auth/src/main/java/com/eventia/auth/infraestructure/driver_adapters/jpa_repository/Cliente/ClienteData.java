@@ -2,6 +2,7 @@ package com.eventia.auth.infraestructure.driver_adapters.jpa_repository.Cliente;
 
 import com.eventia.auth.infraestructure.driver_adapters.jpa_repository.UsuarioData;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
@@ -17,6 +18,7 @@ import lombok.NoArgsConstructor;
 public class ClienteData extends UsuarioData {
 
     @JsonProperty("telefono")
+    @Column(unique = true)
     private String telefono;
 
     @JsonProperty("activo")

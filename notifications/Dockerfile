@@ -1,5 +1,21 @@
-FROM openjdk:21-jdk-slim
+FROM eclipse-temurin:21-jdk AS build
+
 WORKDIR /app
-COPY target/notifications-*.jar app.jar
-EXPOSE 9092
+
+COPY . .
+
+
+RUN chmod +x mvnw
+
+
+RUN ./mvnw -q -DskipTests package
+
+FROM eclipse-temurin:21-jre
+
+WORKDIR /app
+
+COPY --from=build target/notifications-*.jar app.jar
+
+EXPOSE 9090
+
 ENTRYPOINT ["java", "-jar", "app.jar"]

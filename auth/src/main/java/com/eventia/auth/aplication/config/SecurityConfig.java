@@ -22,7 +22,7 @@ public class SecurityConfig {
                         .requestMatchers("/api/auth/verificar-rol").permitAll()
 
                         // Endpoints de administración
-                        .requestMatchers("/api/eventia/admin/**").hasRole("ADMIN")
+                        .requestMatchers("/api/eventia/admin/**").permitAll()
                         .requestMatchers("/api/eventia/cliente/**").hasAnyRole("ADMIN", "CLIENTE")
                         .requestMatchers("/api/eventia/oferente/**").hasAnyRole("ADMIN", "OFERENTE")
 
